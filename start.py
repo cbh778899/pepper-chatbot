@@ -1,73 +1,109 @@
 from module_receiver import BaseSpeechReceiverModule
 from module_speechrecognition import SpeechRecognitionModule
-from optparse import OptionParser
+from naoqi import ALProxy, ALBroker
 
-NAO_IP = "0.0.0.0"
-NAO_PORT = 9559
-
-import naoqi
 import time
+import os
 import sys
-# from naoqi import ALProxy
 
+from optparse import OptionParser
+from tools import load_env, toint, tofloat
+
+load_env()
+
+NAO_IP = os.getenv('NAO_IP') or "localhost"
+NAO_PORT = toint(os.getenv('NAO_PORT')) or 9559
+
+# server
+URL = os.getenv('URL')
+CHAT_COMPLETION_ROUTE = os.getenv('CHAT_COMPLETION_ROUTE') or "/chat/completions"
+
+# openai
+MODEL_NAME = os.getenv('MODEL_NAME')
+API_KEY = os.getenv('API_KEY')
 
 def main():
     parser = OptionParser()
-    parser.add_option("--pip",
+    parser.add_option("--ip",
         help="Parent broker port. The IP address or your robot",
-        dest="pip")
-    parser.add_option("--pport",
+        dest="ip")
+    parser.add_option("--port",
         help="Parent broker port. The port NAOqi is listening to",
-        dest="pport",
+        dest="port",
         type="int")
-    parser.add_option("--base-route",
-        help="Base route of OpenAI Server",
-        dest="server_base_route")
+    parser.add_option("--url",
+        help="Base url of OpenAI-llike Server",
+        dest="server_url")
+    parser.add_option("--route",
+        help="Route of chat completion server, default '/chat/completions'",
+        dest="route")
+    parser.add_option("--api-key",
+        help="API Key of OpenAI APIs",
+        dest="api_key")
+    parser.add_option("--model-name",
+        help="Model name when calling OpenAI API",
+        dest="model_name")
+    parser.add_option("--save-csv",
+        help="Set to enable save conversation to a file called dialogue.csv",
+        dest="save_csv",
+        action='store_true')
     parser.set_defaults(
-        pip=NAO_IP,
-        pport=NAO_PORT
+        ip=NAO_IP,
+        port=NAO_PORT,
+        server_url=URL,
+        route=CHAT_COMPLETION_ROUTE,
+        api_key=API_KEY,
+        model_name=MODEL_NAME,
+        save_csv=False
     )
 
-    (opts, args_) = parser.parse_args()
-    pip   = opts.pip
-    pport = opts.pport
-    server_base_route = opts.server_base_route
-    auth_key = opts.auth_key
+    opts = parser.parse_args()[0]
 
-    myBroker = naoqi.ALBroker("myBroker",
-       "0.0.0.0",   # listen to anyone
-       0,           # find a free port and use it
-       pip,         # parent broker IP
-       pport)       # parent broker port
+    ip   = opts.ip
+    port = toint(opts.port)
+    server_url = opts.server_url
+    route = opts.route
+    api_key = opts.api_key
+    model_name = opts.model_name
+    save_csv = opts.save_csv
+
+    # setup broker to use memory and different modules
+    myBroker = ALBroker("myBroker",
+       "0.0.0.0", # listen to anyone
+       0,         # find a free port and use it
+       ip,        # parent broker IP
+       port       # parent broker port
+    )
 
     try:
-        p = ALProxy("BaseSpeechReceiverModule")
-        p.exit()  # kill previous instance
+        p = ALProxy("SpeechRecognition")
+        p.exit()  # kill previous instance, useful for developing ;)
     except:
         pass
 
-    memory = naoqi.ALProxy("ALMemory")
+    # declear events sharing between different modules
+    memory = ALProxy("ALMemory")
     memory.declareEvent("SpeechRecognition")
     memory.declareEvent("Speaking")
 
     global SpeechRecognition
-    SpeechRecognition = SpeechRecognitionModule("SpeechRecognition", pip, pport)
+    SpeechRecognition = SpeechRecognitionModule("SpeechRecognition", ip, port)
 
     # auto-detection
-    # SpeechRecognition = ALProxy("SpeechRecognition")
     SpeechRecognition.start()
-    SpeechRecognition.setHoldTime(2.0)
-    SpeechRecognition.setIdleReleaseTime(1.0)
-    SpeechRecognition.setMaxRecordingDuration(7)
-    SpeechRecognition.setLookaheadDuration(0.5)
-    #SpeechRecognition.setLanguage("de-de")
-    #SpeechRecognition.calibrate()
-    SpeechRecognition.setAutoDetectionThreshold(5)
+    SpeechRecognition.setHoldTime(tofloat(os.getenv('HOLD_TIME')) or 2.0)
+    SpeechRecognition.setIdleReleaseTime(tofloat(os.getenv('RELEASE_TIME')) or 1.0)
+    SpeechRecognition.setMaxRecordingDuration(tofloat(os.getenv('RECORD_DURATION')) or 7.0)
+    SpeechRecognition.setLookaheadDuration(tofloat(os.getenv('LOOK_AHEAD_DURATION')) or 0.5)
+    SpeechRecognition.setAutoDetectionThreshold(toint(os.getenv('AUTO_DETECTION_THREADSHOLD')) or 5)
     SpeechRecognition.enableAutoDetection()
-    #SpeechRecognition.startRecording()
 
     global BaseSpeechReceiver
-    BaseSpeechReceiver = BaseSpeechReceiverModule("BaseSpeechReceiver", pip, pport, server_base_route, auth_key=auth_key)
+    BaseSpeechReceiver = BaseSpeechReceiverModule(
+        "BaseSpeechReceiver", ip, port,
+        server_url=server_url, base_route=route,
+        api_key=api_key, model_name=model_name, save_csv=save_csv
+    )
     BaseSpeechReceiver.start()
 
     try:
