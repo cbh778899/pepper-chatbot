@@ -64,3 +64,6 @@ venv/
 # recorded debug audio files
 *.raw
 *.wav
+
+.env
+*.csv
