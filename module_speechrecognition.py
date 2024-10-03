@@ -15,17 +15,16 @@
 ###########################################################
 import socket
 
-import naoqi
 import numpy as np
 import sys
 import threading
-from naoqi import ALProxy
+from naoqi import ALModule, ALProxy
 from google import Recognizer, UnknownValueError, RequestError
 from numpy import sqrt, mean, square
 import traceback
 
 
-RECORDING_DURATION = 7     # seconds, maximum recording time, also default value for startRecording(), Google Speech API only accepts up to about 10-15 seconds
+RECORDING_DURATION = 7      # seconds, maximum recording time, also default value for startRecording(), Google Speech API only accepts up to about 10-15 seconds
 LOOKAHEAD_DURATION = 1.0    # seconds, for auto-detect mode: amount of seconds before the threshold trigger that will be included in the request
 IDLE_RELEASE_TIME = 2.0     # seconds, for auto-detect mode: idle time (RMS below threshold) after which we stop recording and recognize
 HOLD_TIME = 2.0             # seconds, minimum recording time after we started recording (autodetection)
@@ -36,13 +35,10 @@ CALIBRATION_THRESHOLD_FACTOR = 1.5  # factor the calculated mean RMS gets multip
 
 DEFAULT_LANGUAGE = "en-us"  # RFC5646 language tag, e.g. "en-us", "de-de", "fr-fr",... <http://stackoverflow.com/a/14302134>
 
-# WRITE_WAV_FILE = False      # write the recorded audio to "out.wav" before sending it to google. intended for debugging purposes
-PRINT_RMS = False           # prints the calculated RMS value to the console, useful for setting the threshold
-
 PREBUFFER_WHEN_STOP = False # Fills pre-buffer with last samples when stopping recording. WARNING: has performance issues!
 
 
-class SpeechRecognitionModule(naoqi.ALModule):
+class SpeechRecognitionModule(ALModule):
     """
     Use this object to get call back from the ALMemory of the naoqi world.
     Your callback needs to be a method with two parameter (variable name, value).
@@ -50,22 +46,20 @@ class SpeechRecognitionModule(naoqi.ALModule):
 
     def __init__( self, strModuleName, strNaoIp, port ):
         try:
-            naoqi.ALModule.__init__(self, strModuleName )
+            ALModule.__init__(self, strModuleName )
 
             # is these 2 line necessary? what do they do?
             # just copied them from the examples...
             self.BIND_PYTHON( self.getName(),"callback" )
             self.strNaoIp = strNaoIp
+
             self.port = port
             self.inited = False
+            self.isStarted = False
 
             # declare event to ALMemory so other modules can subscribe
-            self.memory = naoqi.ALProxy("ALMemory", self.strNaoIp, self.port)
+            self.memory = ALProxy("ALMemory", self.strNaoIp, self.port)
             self.memory.subscribeToEvent("Speaking", self.getName(), "switchSpeaking")
-            # self.memory.declareEvent("SpeechRecognition")
-
-            # flag to indicate if subscribed to audio events
-            self.isStarted = False
 
             # flag to indicate if we are currently recording audio
             self.isRecording = False
@@ -75,10 +69,6 @@ class SpeechRecognitionModule(naoqi.ALModule):
             # flag to indicate if auto speech detection is enabled
             self.isAutoDetectionEnabled = False
             self.autoDetectionThreshold = 10 # TODO: find a default value that works fine so we don't need to calibrate every time
-
-            # flag to indicate if we are calibrating
-            self.isCalibrating = False
-            self.startCalibrationTimestamp = 0
 
             # RMS calculation variables
             self.framesCount = 0
@@ -108,30 +98,26 @@ class SpeechRecognitionModule(naoqi.ALModule):
         self.stop()
 
     def start( self ):
-
         if(self.isStarted):
-            print("INF: SpeechRecognitionModule.start: already running")
             return
 
         # print("INF: SpeechRecognitionModule: starting!")
 
         self.isStarted = True
 
-        audio = naoqi.ALProxy( "ALAudioDevice")
+        audio = ALProxy( "ALAudioDevice")
         nNbrChannelFlag = 0 # ALL_Channels: 0,  AL::LEFTCHANNEL: 1, AL::RIGHTCHANNEL: 2 AL::FRONTCHANNEL: 3  or AL::REARCHANNEL: 4.
         nDeinterleave = 0
         audio.setClientPreferences( self.getName(),  SAMPLE_RATE, nNbrChannelFlag, nDeinterleave ) # setting same as default generate a bug !?!
         audio.subscribe( self.getName() )
 
     def pause(self):
-        # print("INF: SpeechRecognitionModule.pause: stopping")
         if (self.isStarted == False):
-            print("INF: SpeechRecognitionModule.stop: not running")
             return
 
         self.isStarted = False
 
-        audio = naoqi.ALProxy("ALAudioDevice", self.strNaoIp, self.port)
+        audio = ALProxy("ALAudioDevice", self.strNaoIp, self.port)
         audio.unsubscribe(self.getName())
 
         # print("INF: SpeechRecognitionModule: stopped!")
@@ -154,8 +140,8 @@ class SpeechRecognitionModule(naoqi.ALModule):
             aSoundDataInterlaced = np.fromstring( str(buffer), dtype=np.int16 )
             aSoundData = np.reshape( aSoundDataInterlaced, (nbOfChannels, nbrOfSamplesByChannel), 'F' )
 
-            # compute RMS, handle autodetection and calibration
-            if( self.isCalibrating or self.isAutoDetectionEnabled or self.isRecording):
+            # compute RMS, handle autodetection
+            if( self.isAutoDetectionEnabled or self.isRecording):
 
                 # compute the rms level on front mic
                 rmsMicFront = self.calcRMSLevel(self.convertStr2SignedInt(aSoundData[0]))
@@ -165,79 +151,38 @@ class SpeechRecognitionModule(naoqi.ALModule):
                     self.lastTimeRMSPeak = timestamp
 
                     # start recording if we are not doing so already
-                    if (self.isAutoDetectionEnabled and not self.isRecording and not self.isCalibrating):
+                    if (self.isAutoDetectionEnabled and not self.isRecording):
                         self.startRecording()
 
-                # perform calibration
-                if( self.isCalibrating):
+            if(self.isRecording):
+                # write to buffer
+                self.buffer.append(aSoundData)
 
-                    if(self.startCalibrationTimestamp <= 0):
-                        # we are starting to calibrate, save timestamp
-                        # to track how long we are doing this
-                        self.startCalibrationTimestamp = timestamp
+                if (self.startRecordingTimestamp <= 0):
+                    # initialize timestamp when we start recording
+                    self.startRecordingTimestamp = timestamp
+                elif ((timestamp - self.startRecordingTimestamp) > self.recordingDuration):
+                    # print('stop after max recording duration')
+                    # check how long we are recording
+                    self.stopRecordingAndRecognize()
 
-                    elif(timestamp - self.startCalibrationTimestamp >= CALIBRATION_DURATION):
-                        # time's up, we're done!
-                        self.stopCalibration()
+                # stop recording after idle time (and recording at least hold time)
+                # lastTimeRMSPeak is 0 if no peak occured
+                if (timestamp - self.lastTimeRMSPeak >= self.idleReleaseTime) and (
+                        timestamp - self.startRecordingTimestamp >= self.holdTime):
+                    # print(('stopping after idle/hold time'))
+                    self.stopRecordingAndRecognize()
+            else:
+                # constantly record into prebuffer for lookahead
+                self.preBuffer.append(aSoundData)
+                self.preBufferLength += len(aSoundData[0])
 
-                    # sum rms values of the frames
-                    # keep track of how many frames we sum up
-                    # to calculate mean afterwards
-                    self.rmsSum += rmsMicFront
-                    self.framesCount = self.framesCount + 1
+                # remove first (oldest) item if the buffer gets bigger than required
+                # removes one block of samples as we store a list of lists...
+                overshoot = (self.preBufferLength - self.lookaheadBufferSize)
 
-
-                if(PRINT_RMS):
-                    # for debug purposes
-                    # also use it to find a good threshold value for auto detection
-                    print('Mic RMS: ' + str(rmsMicFront))
-
-            if( False ):
-                # compute average
-                aAvgValue = np.mean( aSoundData, axis = 1 )
-                print( "avg: %s" % aAvgValue )
-            if( False ):
-                # compute fft
-                nBlockSize = nbrOfSamplesByChannel
-                signal = aSoundData[0] * np.hanning( nBlockSize )
-                aFft = ( np.fft.rfft(signal) / nBlockSize )
-                print(aFft)
-            if( False ):
-                # compute peak
-                aPeakValue = np.max( aSoundData )
-                if( aPeakValue > 16000 ):
-                    print( "Peak: %s" % aPeakValue )
-
-            if(not self.isCalibrating):
-                if(self.isRecording):
-                    # write to buffer
-                    self.buffer.append(aSoundData)
-
-                    if (self.startRecordingTimestamp <= 0):
-                        # initialize timestamp when we start recording
-                        self.startRecordingTimestamp = timestamp
-                    elif ((timestamp - self.startRecordingTimestamp) > self.recordingDuration):
-                        # print('stop after max recording duration')
-                        # check how long we are recording
-                        self.stopRecordingAndRecognize()
-
-                    # stop recording after idle time (and recording at least hold time)
-                    # lastTimeRMSPeak is 0 if no peak occured
-                    if (timestamp - self.lastTimeRMSPeak >= self.idleReleaseTime) and (
-                            timestamp - self.startRecordingTimestamp >= self.holdTime):
-                        # print(('stopping after idle/hold time'))
-                        self.stopRecordingAndRecognize()
-                else:
-                    # constantly record into prebuffer for lookahead
-                    self.preBuffer.append(aSoundData)
-                    self.preBufferLength += len(aSoundData[0])
-
-                    # remove first (oldest) item if the buffer gets bigger than required
-                    # removes one block of samples as we store a list of lists...
-                    overshoot = (self.preBufferLength - self.lookaheadBufferSize)
-
-                    if((overshoot > 0) and (len(self.preBuffer) > 0)):
-                        self.preBufferLength -= len(self.preBuffer.pop(0)[0])
+                if((overshoot > 0) and (len(self.preBuffer) > 0)):
+                    self.preBufferLength -= len(self.preBuffer.pop(0)[0])
 
         except:
             # i did this so i could see the stracktrace as the thread otherwise just silently failed
@@ -254,13 +199,11 @@ class SpeechRecognitionModule(naoqi.ALModule):
     def version( self ):
         return "1.1"
 
-
     # use this method to manually start recording (works with both autodetection enabled or disabled)
     # the recording will stop after the signal is below the threshold for IDLE_RELEASE_TIME seconds,
     # but will at least record for HOLD_TIME seconds
     def startRecording(self):
         if(self.isRecording):
-            print("INF: SpeechRecognitionModule.startRecording: already recording")
             return
 
         if not self.inited:
@@ -322,34 +265,9 @@ class SpeechRecognitionModule(naoqi.ALModule):
         self.isRecording = False
 
         return
-
-    def calibrate(self):
-        self.isCalibrating = True
-        self.framesCount = 0
-        self.startCalibrationTimestamp = 0
-
-        print("INF: starting calibration")
-
-        if(self.isStarted == False):
-            self.start()
-
-        return
-
-    def stopCalibration(self):
-        if(self.isCalibrating == False):
-            print("INF: SpeechRecognitionModule.stopCalibration: not calibrating")
-            return
-
-        self.isCalibrating = False
-
-        # calculate avg rms over self.framesCount
-        self.threshold = CALIBRATION_THRESHOLD_FACTOR * (self.rmsSum / self.framesCount)
-        print('calibration done, RMS threshold is: ' + str(self.threshold))
-        return
-
+    
     def enableAutoDetection(self):
         self.isAutoDetectionEnabled = True
-        print("INF: autoDetection enabled")
         return
 
     def disableAutoDetection(self):
@@ -425,74 +343,3 @@ class SpeechRecognitionModule(naoqi.ALModule):
         self.lookaheadBufferSize = duration * SAMPLE_RATE
         self.preBuffer = []
         self.preBufferLength = 0
-
-# SpeechRecognition - end
-
-
-    def getAudioDuration(self):
-        return len(self.audio_data)/48000.0
-
-# def main():
-#     """ Main entry point
-
-#     """
-#     parser = OptionParser()
-#     parser.add_option("--pip",
-#         help="Parent broker port. The IP address or your robot",
-#         dest="pip")
-#     parser.add_option("--pport",
-#         help="Parent broker port. The port NAOqi is listening to",
-#         dest="pport",
-#         type="int")
-#     parser.set_defaults(
-#         pip=NAO_IP,
-#         pport=NAO_PORT)
-
-#     (opts, args_) = parser.parse_args()
-#     pip   = opts.pip
-#     pport = opts.pport
-
-#     # We need this broker to be able to construct
-#     # NAOqi modules and subscribe to other modules
-#     # The broker must stay alive until the program exists
-#     myBroker = naoqi.ALBroker("myBroker",
-#        "0.0.0.0",   # listen to anyone
-#        0,           # find a free port and use it
-#        pip,         # parent broker IP
-#        pport)       # parent broker port
-
-#     try:
-#         p = ALProxy("SpeechRecognition")
-#         p.exit()  # kill previous instance, useful for developing ;)
-#     except:
-#         pass
-
-#     # Reinstantiate module
-
-#     # Warning: SpeechRecognition must be a global variable
-#     # The name given to the constructor must be the name of the
-#     # variable
-#     global SpeechRecognition
-#     SpeechRecognition = SpeechRecognitionModule("SpeechRecognition", pip)
-
-#     # uncomment for debug purposes
-#     # usually a subscribing client will call start() from ALProxy
-#     #SpeechRecognition.start()
-#     #SpeechRecognition.startRecording()
-#     #SpeechRecognition.calibrate()
-#     #SpeechRecognition.enableAutoDetection()
-#     #SpeechRecognition.startRecording()
-
-#     try:
-#         while True:
-#             time.sleep(1)
-#     except KeyboardInterrupt:
-#         print
-#         print("Interrupted by user, shutting down")
-#         myBroker.shutdown()
-#         sys.exit(0)
-
-
-
-# if __name__ == "__main__":
-#     main()
