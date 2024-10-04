@@ -7,7 +7,7 @@ To install dependencies, run
 ```sh
 pip install -r requirements.txt
 ```
-This project sends identified text to the server you provided in OpenAI format. Currently it sent to the server built using our another project [SkywardAI Voyager](https://github.com/skywardai/voyager) on an AWS EC2 server. 
+This project sends identified text to the server you provided in OpenAI format. Currently it sent to the server built using our another project [SkywardAI pepper-voyager](https://github.com/SkywardAI/pepper-voyager) on an AWS EC2 server. 
   
 Assume we've got the AWS EC2 Server address, run
 ```sh
