@@ -19,7 +19,6 @@ import numpy as np
 import sys
 import threading
 from naoqi import ALModule, ALProxy
-# from google import Recognizer, UnknownValueError, RequestError
 from tools import audio_recoginze, buffer_to_wav_in_memory
 from numpy import sqrt, mean, square
 import traceback
