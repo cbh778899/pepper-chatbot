@@ -20,7 +20,7 @@ import sys
 import threading
 from naoqi import ALModule, ALProxy
 # from google import Recognizer, UnknownValueError, RequestError
-from tools import audio_recoginze
+from tools import audio_recoginze, buffer_to_wav_in_memory
 from numpy import sqrt, mean, square
 import traceback
 
@@ -312,27 +312,8 @@ class SpeechRecognitionModule(ALModule):
         return rms_data
 
     def recognize(self, data):
-        # print('sending %d bytes' % len(data))
-
-        buffer = np.getbuffer(data)
-
-        # r = Recognizer()
-        # try:
-        #     result = r.recognize_google(audio_data=buffer, samplerate=SAMPLE_RATE, language=self.language)
-        #     self.memory.raiseEvent("SpeechRecognition", result)
-        #     print('Speech Recognition Result:\n================================\n'+result+'\n================================\n')
-        # except UnknownValueError:
-        #     # print('ERR: Recognition error')
-        #     pass
-        # except RequestError as e:
-        #     print('ERR: ' + str(e))
-        # except socket.timeout:
-        #     print('ERR: Socket timeout')
-        # except:
-        #     print('ERR: Unknown, probably timeout ' + str(sys.exc_info()[0]))
-        # except:
-        #     pass
-        result = audio_recoginze(self.stt_url, buffer, self.stt_route, self.stt_api_key)
+        wav_file = buffer_to_wav_in_memory(data, sample_rate=SAMPLE_RATE)
+        result = audio_recoginze(self.stt_url, wav_file, self.stt_route, self.stt_api_key)
         if result:
             self.memory.raiseEvent("SpeechRecognition", result)
             print('Speech Recognition Result:\n================================\n'+result+'\n================================\n')
