@@ -37,10 +37,13 @@ You can add a `.env` file to add more control
 Available fields are listed below:
 * `NAO_IP` - **String**: The IP address of Pepper Robot, default `localhost`
 * `NAO_PORT` - **Integer**: The port of Pepper Robot, default `9559`
-* `URL` - **String**: The url of AI Chat Completion server, **required**
-* `CHAT_COMPLETION_ROUTE` - **String**: The route of AI Completion based on provided route, default `/chat/completions`
+* `URL` - **String**: The url of services, **required**
+* `SPEECH_RECOGINITION_URL` - **String**: The url of Speech Recognition service. Default to the same as `URL`.
+* `CHAT_COMPLETION_ROUTE` - **String**: The route of AI Completion based on provided url, default `/chat/completions`
+* `SPEECH_RECOGINITION_ROUTE` - **String**: The route of AI Speech Recognition based on provided url, default `/speech/recognition`
 * `MODEL_NAME` - **String**: The model name when integrate with OpenAI, for example, `gpt-4o`
-* `API_KEY` - **String**: The API Key of OpenAI API, sent in `Authorization` header
+* `API_KEY` - **String**: The API Key of all services, sent in `Authorization` header. You can specify api key for each services individually.
+* `SPEECH_API_KEY` - **String**: The API Key of speech recognition service, sent in `Authorization` header
 * `HOLD_TIME` - **Float**: Minimum recording time in seconds. Default `2.0`
 * `RELEASE_TIME` - **Float**: Time idle after stopped recording each piece in seconds. Default `1.0`
 * `RECORD_DURATION` - **Float**: Maximum recording time in seconds. Default `7.0` 
@@ -50,9 +53,11 @@ Available fields are listed below:
 There are some flags you can set when running, available flags are listed below:
 * `--ip`: Specify the IP Address of Pepper robot, default `localhost`
 * `--port`: Specify the port of Pepper robot, default `9559`
-* `--url`: Specify the url of AI Chat Completions server. Either set it here or in `.env` file
-* `--route`: Specify the route of AI Chat Completions based on server, default `/chat/completions`
-* `--api-key`: Specify the OpenAI API Key
+* `--url`: Specify the DNS of services. Either set it here or in `.env` file. You can specify routes in `.env` file for difference services, see the [.env](#env) section.
+* `--chat-route`: Specify the route of AI Chat Completions based on server, default `/chat/completions`
+* `--speech-route`: Specify the route of AI Speech Recognition based on server, default `/speech/recognition`
+* `--api-key`: Specify the services API Key
+* `--speech-api-key`: Specify the speech recognition API key. Default to the same as `--api-key` option.
 * `--model-name`: Specify the OpenAI model name
 * `--save-csv`: Set to save conversation to `dialogue.csv`
 ### Example Usage:
