@@ -9,12 +9,10 @@ def load_env(file_path = '.env'):
             while line:
                 line = line.strip()
                 
-                if not line or line.startswith('#'):
-                    continue
-
-                if '=' in line:
-                    k, v = line.split('=')
-                    os.environ[k.strip()] = v.strip()
+                if line and not line.startswith('#'):
+                    if '=' in line:
+                        k, v = line.split('=')
+                        os.environ[k.strip()] = v.strip()
 
                 line = f.readline()
             f.close()
