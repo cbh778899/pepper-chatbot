@@ -11,7 +11,7 @@ class BaseSpeechReceiverModule(ALModule):
         self.port = port
         self.strNaoIp = strNaoIp
 
-        self.messages = [{"role":"system","content":"You are an assistant names Pepper, your job is to answer users' questions. The questions are converted from audio so it sometimes unclear, please consider this and answer questions."}]
+        self.messages = [{"role":"system","content":"You are an assistant names Pepper, your job is to answer users' questions."}]
         self.response_finished = True
 
         self.server_url = server_url
