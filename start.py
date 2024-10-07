@@ -17,10 +17,12 @@ NAO_PORT = toint(os.getenv('NAO_PORT')) or 9559
 # server
 URL = os.getenv('URL')
 CHAT_COMPLETION_ROUTE = os.getenv('CHAT_COMPLETION_ROUTE') or "/chat/completions"
+SPEECH_RECOGNITION_ROUTE = os.getenv('SPEECH_RECOGINITION_ROUTE') or '/speech/recognition'
 
 # openai
 MODEL_NAME = os.getenv('MODEL_NAME')
 API_KEY = os.getenv('API_KEY')
+SPEECH_API_KEY = os.getenv('SPEECH_API_KEY') or API_KEY
 
 def main():
     parser = OptionParser()
@@ -34,12 +36,18 @@ def main():
     parser.add_option("--url",
         help="Base url of OpenAI-llike Server",
         dest="server_url")
-    parser.add_option("--route",
-        help="Route of chat completion server, default '/chat/completions'",
-        dest="route")
+    parser.add_option("--chat-route",
+        help="Route of chat completion service, default '/chat/completions'",
+        dest="chat_route")
+    parser.add_option("--speech-route",
+        help="Route of speech recognition service, default '/speech/recognition'",
+        dest="speech_route")
     parser.add_option("--api-key",
-        help="API Key of OpenAI APIs",
+        help="API Key of services",
         dest="api_key")
+    parser.add_option("--speech-api-key",
+        help="API Key of Speech Service, default to the same of --api-key option",
+        dest="speech_api_key")
     parser.add_option("--model-name",
         help="Model name when calling OpenAI API",
         dest="model_name")
@@ -51,8 +59,10 @@ def main():
         ip=NAO_IP,
         port=NAO_PORT,
         server_url=URL,
-        route=CHAT_COMPLETION_ROUTE,
+        chat_route=CHAT_COMPLETION_ROUTE,
+        speech_route=SPEECH_RECOGNITION_ROUTE,
         api_key=API_KEY,
+        speech_api_key=SPEECH_API_KEY,
         model_name=MODEL_NAME,
         save_csv=False
     )
@@ -62,10 +72,16 @@ def main():
     ip   = opts.ip
     port = toint(opts.port)
     server_url = opts.server_url
-    route = opts.route
+    chat_route = opts.chat_route
+    speech_route = opts.speech_route
     api_key = opts.api_key
+    speech_api_key = opts.speech_api_key
     model_name = opts.model_name
     save_csv = opts.save_csv
+
+    if not server_url:
+        print('Error: Services route not specified!')
+        return
 
     # setup broker to use memory and different modules
     myBroker = ALBroker("myBroker",
@@ -86,8 +102,13 @@ def main():
     memory.declareEvent("SpeechRecognition")
     memory.declareEvent("Speaking")
 
+    speech_recoginition_url = os.getenv('SPEECH_RECOGINITION_URL') or server_url
+
     global SpeechRecognition
-    SpeechRecognition = SpeechRecognitionModule("SpeechRecognition", ip, port)
+    SpeechRecognition = SpeechRecognitionModule(
+        "SpeechRecognition", ip, port,
+        speech_recoginition_url, speech_route, speech_api_key
+    )
 
     # auto-detection
     SpeechRecognition.start()
@@ -101,7 +122,7 @@ def main():
     global BaseSpeechReceiver
     BaseSpeechReceiver = BaseSpeechReceiverModule(
         "BaseSpeechReceiver", ip, port,
-        server_url=server_url, base_route=route,
+        server_url=server_url, base_route=chat_route,
         api_key=api_key, model_name=model_name, save_csv=save_csv
     )
     BaseSpeechReceiver.start()
