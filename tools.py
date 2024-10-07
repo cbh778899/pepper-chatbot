@@ -34,6 +34,30 @@ def tofloat(float_like):
         return f
     except:
         return 0
+    
+def request(base_url, route, body, headers = {}, is_json = True):
+    if is_json:
+        body = json.dumps(body)
+    
+    req = urllib2.Request(base_url+route, data=body)
+    
+    if 'Content-Type' not in headers:
+        req.add_header('Content-Type', 'application/json')
+
+    for k, v in headers:
+        req.add_header(k, v)
+
+    try:
+        response = urllib2.urlopen(req)
+        response_data = response.read()
+        return json.loads(response_data)
+    
+    except urllib2.HTTPError as e:
+        print("HTTP Error:", e.code, e.read())
+
+    except urllib2.URLError as e:
+        print("URL Error:", e.reason)
+
 
 def chat_completion(base_url, messages, max_tokens=50, route='/chat/completions', model_name=None, api_key=None):
     data = {
@@ -42,27 +66,25 @@ def chat_completion(base_url, messages, max_tokens=50, route='/chat/completions'
     }
     if model_name: data['model'] = model_name
 
-    data = json.dumps(data)
-    req = urllib2.Request(base_url+route, data=data)
-    req.add_header('Content-Type', 'application/json')
-    req.add_header('Authorization', 'Bearer '+ (api_key or 'no-key'))
+    resp = request(base_url, route, data, {'Authorization': 'Bearer '+ (api_key or 'no-key')})
+    resp_text = str(resp['choices'][0]['message']['content']) if resp else ''
+   
+    return resp_text
 
-    try:
-        # Send the request and get the response
-        response = urllib2.urlopen(req)
-        
-        # Read and parse the response
-        response_data = response.read()
-        parsed_response = json.loads(response_data)
-        
-        # Print the parsed response
-        resp_text = str(parsed_response['choices'][0]['message']['content'])
-        return resp_text 
+def audio_recoginze(base_url, data, route='/speech/recognition', api_key='no-key'):
+    resp = request(
+        base_url, route, data, is_json=False,
+        headers={
+            'Content-Type': 'audio/wav',
+            'Authorization': 'Bearer '+ (api_key or 'no-key')
+        }
+    )
+    recoginzed_text = ''
 
-    except urllib2.HTTPError as e:
-        print("HTTP Error:", e.code, e.read())
-        return ''
-
-    except urllib2.URLError as e:
-        print("URL Error:", e.reason)
-        return ''
+    if resp:
+        if 'text' in resp:
+            recoginzed_text = resp['text']
+        elif 'error' in resp:
+            print('Error: '+resp['error'])
+    
+    return recoginzed_text
