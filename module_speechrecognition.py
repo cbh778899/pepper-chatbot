@@ -19,7 +19,8 @@ import numpy as np
 import sys
 import threading
 from naoqi import ALModule, ALProxy
-from google import Recognizer, UnknownValueError, RequestError
+# from google import Recognizer, UnknownValueError, RequestError
+from tools import audio_recoginze
 from numpy import sqrt, mean, square
 import traceback
 
@@ -44,7 +45,7 @@ class SpeechRecognitionModule(ALModule):
     Your callback needs to be a method with two parameter (variable name, value).
     """
 
-    def __init__( self, strModuleName, strNaoIp, port ):
+    def __init__( self, strModuleName, strNaoIp, port, stt_url, stt_route='/speech/recognition', stt_api_key='no-key' ):
         try:
             ALModule.__init__(self, strModuleName )
 
@@ -54,6 +55,11 @@ class SpeechRecognitionModule(ALModule):
             self.strNaoIp = strNaoIp
 
             self.port = port
+
+            self.stt_url = stt_url
+            self.stt_route = stt_route
+            self.stt_api_key = stt_api_key
+
             self.inited = False
             self.isStarted = False
 
@@ -310,22 +316,26 @@ class SpeechRecognitionModule(ALModule):
 
         buffer = np.getbuffer(data)
 
-        r = Recognizer()
-        try:
-            result = r.recognize_google(audio_data=buffer, samplerate=SAMPLE_RATE, language=self.language)
-            self.memory.raiseEvent("SpeechRecognition", result)
-            print('Speech Recognition Result:\n================================\n'+result+'\n================================\n')
-        except UnknownValueError:
-            # print('ERR: Recognition error')
-            pass
-        except RequestError as e:
-            print('ERR: ' + str(e))
-        except socket.timeout:
-            print('ERR: Socket timeout')
-        except:
-            print('ERR: Unknown, probably timeout ' + str(sys.exc_info()[0]))
+        # r = Recognizer()
+        # try:
+        #     result = r.recognize_google(audio_data=buffer, samplerate=SAMPLE_RATE, language=self.language)
+        #     self.memory.raiseEvent("SpeechRecognition", result)
+        #     print('Speech Recognition Result:\n================================\n'+result+'\n================================\n')
+        # except UnknownValueError:
+        #     # print('ERR: Recognition error')
+        #     pass
+        # except RequestError as e:
+        #     print('ERR: ' + str(e))
+        # except socket.timeout:
+        #     print('ERR: Socket timeout')
+        # except:
+        #     print('ERR: Unknown, probably timeout ' + str(sys.exc_info()[0]))
         # except:
         #     pass
+        result = audio_recoginze(self.stt_url, buffer, self.stt_route, self.stt_api_key)
+        if result:
+            self.memory.raiseEvent("SpeechRecognition", result)
+            print('Speech Recognition Result:\n================================\n'+result+'\n================================\n')
 
     def setAutoDetectionThreshold(self, threshold):
         self.autoDetectionThreshold = threshold
