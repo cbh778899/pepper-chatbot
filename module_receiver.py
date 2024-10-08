@@ -76,9 +76,9 @@ class BaseSpeechReceiverModule(ALModule):
 
         if resp_text:
             print("AI Inference Result:\n================================\n"+resp_text+"\n================================\n")
-            self.memory.raiseEvent("Speaking", True)
+            self.memory.raiseEvent("Speaking", resp_text)
             self.speech.say(resp_text)
-            self.memory.raiseEvent("Speaking", False)
+            self.memory.raiseEvent("Speaking", None)
             self.messages.append({'role':'assistant','content':resp_text})
 
             if self.save_csv:
