@@ -60,7 +60,7 @@ def request(base_url, route, body, headers = {}, is_json = True):
         print("URL Error:", e.reason)
 
 
-def chat_completion(base_url, messages, max_tokens=50, route='/chat/completions', model_name=None, api_key=None):
+def chat_completion(base_url, messages, max_tokens=30, route='/chat/completions', model_name=None, api_key=None):
     data = {
         'messages': messages,
         'max_tokens': max_tokens
