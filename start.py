@@ -55,6 +55,12 @@ def main():
         help="Set to enable save conversation to a file called dialogue.csv",
         dest="save_csv",
         action='store_true')
+    parser.add_option("--prompt",
+        help="Add a system prompt",
+        dest="prompt")
+    parser.add_option("--fprompt",
+        help="Add a system prompt load from a file, specify the file name to . If --prompt is specified, ignore this",
+        dest="fprompt")
     parser.set_defaults(
         ip=NAO_IP,
         port=NAO_PORT,
@@ -64,7 +70,9 @@ def main():
         api_key=API_KEY,
         speech_api_key=SPEECH_API_KEY,
         model_name=MODEL_NAME,
-        save_csv=False
+        save_csv=False,
+        prompt='',
+        fprompt=''
     )
 
     opts = parser.parse_args()[0]
@@ -78,10 +86,21 @@ def main():
     speech_api_key = opts.speech_api_key
     model_name = opts.model_name
     save_csv = opts.save_csv
+    prompt=opts.prompt
+    fprompt=opts.fprompt
 
     if not server_url:
         print('Error: Services route not specified!')
         return
+    
+    try:
+        if not prompt and fprompt:
+            prompt_file = open(fprompt, 'r')
+            prompt = prompt_file.read().strip()
+            prompt_file.close()
+    except:
+        print('\n\nLoading prompt failed, is the file exists? Process to using the default prompt...\n\n')
+        prompt = ''
 
     # setup broker to use memory and different modules
     myBroker = ALBroker("myBroker",
@@ -123,7 +142,8 @@ def main():
     BaseSpeechReceiver = BaseSpeechReceiverModule(
         "BaseSpeechReceiver", ip, port,
         server_url=server_url, base_route=chat_route,
-        api_key=api_key, model_name=model_name, save_csv=save_csv
+        api_key=api_key, model_name=model_name, save_csv=save_csv,
+        system_prompt=prompt
     )
     BaseSpeechReceiver.start()
 

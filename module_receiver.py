@@ -7,11 +7,15 @@ class BaseSpeechReceiverModule(ALModule):
     Your callback needs to be a method with two parameter (variable name, value).
     """
 
-    def __init__( self, strModuleName, strNaoIp, port, server_url, base_route, api_key, model_name, save_csv ):
+    def __init__( 
+            self, strModuleName, strNaoIp, port, 
+            server_url, base_route, api_key, 
+            model_name, save_csv=False, system_prompt='' 
+        ):
         self.port = port
         self.strNaoIp = strNaoIp
 
-        self.messages = [{"role":"system","content":"You are an assistant names Pepper, your job is to answer users' questions."}]
+        self.messages = [{"role":"system","content": system_prompt or "You are an assistant names Pepper, your job is to answer users' questions in short."}]
         self.response_finished = True
 
         self.server_url = server_url
