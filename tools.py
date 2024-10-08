@@ -60,12 +60,12 @@ def request(base_url, route, body, headers = {}, is_json = True):
         print("URL Error:", e.reason)
 
 
-def chat_completion(base_url, messages, max_tokens=30, route='/chat/completions', model_name=None, api_key=None):
+def chat_completion(base_url, messages, max_tokens=0, route='/chat/completions', model_name=None, api_key=None):
     data = {
         'messages': messages,
-        'max_tokens': max_tokens
     }
     if model_name: data['model'] = model_name
+    if max_tokens: data['max_tokens'] = max_tokens
 
     resp = request(base_url, route, data, {'Authorization': 'Bearer '+ (api_key or 'no-key')})
     resp_text = str(resp['choices'][0]['message']['content']) if resp else ''
