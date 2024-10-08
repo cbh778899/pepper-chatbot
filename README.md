@@ -60,6 +60,8 @@ There are some flags you can set when running, available flags are listed below:
 * `--speech-api-key`: Specify the speech recognition API key. Default to the same as `--api-key` option.
 * `--model-name`: Specify the OpenAI model name
 * `--save-csv`: Set to save conversation to `dialogue.csv`
+* `--prompt`: Specify the system prompt to use in AI Chat Completions.
+* `--fprompt`: Load the system prompt from a file, if the `--propmt` option specified, this will be ignored.
 ### Example Usage:
 ```sh
 python start.py --url "http://<ec2-instance-public-DNS>/v1" --save-csv
