@@ -1,5 +1,6 @@
 from module_receiver import BaseSpeechReceiverModule
 from module_speechrecognition import SpeechRecognitionModule
+from module_eyecontact import EyeContactModule
 from naoqi import ALProxy, ALBroker
 
 import time
@@ -120,6 +121,7 @@ def main():
     memory = ALProxy("ALMemory")
     memory.declareEvent("SpeechRecognition")
     memory.declareEvent("Speaking")
+    memory.declareEvent("EyeContact")
 
     speech_recoginition_url = os.getenv('SPEECH_RECOGINITION_URL') or server_url
 
@@ -129,23 +131,26 @@ def main():
         speech_recoginition_url, speech_route, speech_api_key
     )
 
+    global EyeContact
+    EyeContact = EyeContactModule("EyeContact")
+
     # auto-detection
-    SpeechRecognition.start()
     SpeechRecognition.setHoldTime(tofloat(os.getenv('HOLD_TIME')) or 2.0)
     SpeechRecognition.setIdleReleaseTime(tofloat(os.getenv('RELEASE_TIME')) or 1.0)
     SpeechRecognition.setMaxRecordingDuration(tofloat(os.getenv('RECORD_DURATION')) or 7.0)
     SpeechRecognition.setLookaheadDuration(tofloat(os.getenv('LOOK_AHEAD_DURATION')) or 0.5)
     SpeechRecognition.setAutoDetectionThreshold(toint(os.getenv('AUTO_DETECTION_THREADSHOLD')) or 5)
     SpeechRecognition.enableAutoDetection()
+    SpeechRecognition.start()
 
-    global BaseSpeechReceiver
-    BaseSpeechReceiver = BaseSpeechReceiverModule(
-        "BaseSpeechReceiver", ip, port,
+    global Receiver
+    Receiver = BaseSpeechReceiverModule(
+        "Receiver", ip, port,
         server_url=server_url, base_route=chat_route,
         api_key=api_key, model_name=model_name, save_csv=save_csv,
         system_prompt=prompt
     )
-    BaseSpeechReceiver.start()
+    Receiver.start()
 
     try:
         while True:
