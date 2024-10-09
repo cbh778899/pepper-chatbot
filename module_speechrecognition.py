@@ -59,12 +59,15 @@ class SpeechRecognitionModule(ALModule):
             self.stt_route = stt_route
             self.stt_api_key = stt_api_key
 
-            self.inited = False
+            # self.inited = False
             self.isStarted = False
 
-            # declare event to ALMemory so other modules can subscribe
+            self.eye_contact = False
+            self.is_speaking = False
+
             self.memory = ALProxy("ALMemory", self.strNaoIp, self.port)
-            self.memory.subscribeToEvent("Speaking", self.getName(), "switchSpeaking")
+            self.memory.subscribeToEvent("EyeContact", self.getName(), "eye_contact_toggle")
+            self.memory.subscribeToEvent("Speaking", self.getName(), "speaking_toggle")
 
             # flag to indicate if we are currently recording audio
             self.isRecording = False
@@ -117,21 +120,33 @@ class SpeechRecognitionModule(ALModule):
         audio.subscribe( self.getName() )
 
     def pause(self):
-        if (self.isStarted == False):
+        if not self.isStarted:
             return
 
         self.isStarted = False
 
-        audio = ALProxy("ALAudioDevice", self.strNaoIp, self.port)
+        audio = ALProxy("ALAudioDevice")
         audio.unsubscribe(self.getName())
 
         # print("INF: SpeechRecognitionModule: stopped!")
 
     def stop( self ):
         self.pause()
+        print( "INF: SpeechRecognitionModule: stopped!" )
 
-    def switchSpeaking(self, _, is_speaking):
-        self.pause() if is_speaking else self.start() 
+    def eye_contact_toggle(self, _, has_eye_contact):
+        self.eye_contact = has_eye_contact
+        self.toggle_status()
+
+    def speaking_toggle(self, _, is_speaking):
+        self.is_speaking = not not is_speaking
+        self.toggle_status()
+
+    def toggle_status(self):
+        if self.eye_contact and not self.is_speaking:
+            self.start()
+        else:
+            self.pause()
 
     def processRemote( self, nbOfChannels, nbrOfSamplesByChannel, aTimeStamp, buffer ):
         #print("INF: SpeechRecognitionModule: Processing '%s' channels" % nbOfChannels)
@@ -156,7 +171,7 @@ class SpeechRecognitionModule(ALModule):
                     self.lastTimeRMSPeak = timestamp
 
                     # start recording if we are not doing so already
-                    if (self.isAutoDetectionEnabled and not self.isRecording):
+                    if (self.isAutoDetectionEnabled and self.eye_contact and not self.isRecording):
                         self.startRecording()
 
             if(self.isRecording):
@@ -166,10 +181,10 @@ class SpeechRecognitionModule(ALModule):
                 if (self.startRecordingTimestamp <= 0):
                     # initialize timestamp when we start recording
                     self.startRecordingTimestamp = timestamp
-                elif ((timestamp - self.startRecordingTimestamp) > self.recordingDuration):
-                    # print('stop after max recording duration')
-                    # check how long we are recording
-                    self.stopRecordingAndRecognize()
+                # elif ((timestamp - self.startRecordingTimestamp) > self.recordingDuration):
+                #     # print('stop after max recording duration')
+                #     # check how long we are recording
+                #     self.stopRecordingAndRecognize()
 
                 # stop recording after idle time (and recording at least hold time)
                 # lastTimeRMSPeak is 0 if no peak occured
@@ -211,9 +226,9 @@ class SpeechRecognitionModule(ALModule):
         if(self.isRecording):
             return
 
-        if not self.inited:
-            print("INF: Started, you can speek now\n")
-            self.inited = True
+        # if not self.inited:
+        #     print("INF: Started, you can speek now\n")
+        #     self.inited = True
 
         # start recording
         self.startRecordingTimestamp = 0
