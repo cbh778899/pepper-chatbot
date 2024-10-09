@@ -25,7 +25,7 @@ class BaseSpeechReceiverModule(ALModule):
 
         self.save_csv = save_csv
 
-        self.speech = ALProxy('ALTextToSpeech', strNaoIp, self.port)
+        self.speech = ALProxy('ALTextToSpeech')
         self.memory = ALProxy("ALMemory", self.strNaoIp, self.port)
 
         try:
@@ -46,15 +46,15 @@ class BaseSpeechReceiverModule(ALModule):
 
     def start( self ):
         self.memory.subscribeToEvent("SpeechRecognition", self.getName(), "processRemote")
-        print( "INF: ReceiverModule: started!" )
+        # print( "INF: ReceiverModule: started!" )
 
 
     def stop( self ):
         print( "INF: ReceiverModule: stopping..." )
-        self.memory.unsubscribe(self.getName())
-#	self.speech.stopAll()
-
-        print( "INF: ReceiverModule: stopped!" )
+        try:
+            self.memory.unsubscribe('SpeechRecognition', self.getName())
+        finally:
+            print( "INF: ReceiverModule: stopped!" )
 
     def version( self ):
         return "1.1"
