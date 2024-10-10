@@ -12,10 +12,17 @@ class BaseSpeechReceiverModule(ALModule):
             server_url, base_route, api_key, 
             model_name, save_csv=False, system_prompt='' 
         ):
+        
+        ALModule.__init__(self, strModuleName )
+        self.BIND_PYTHON( self.getName(),"callback" )
+
         self.port = port
         self.strNaoIp = strNaoIp
 
-        self.messages = [{"role":"system","content": system_prompt or "You are an assistant names Pepper, your job is to answer users' questions in short."}]
+        self.messages = []
+        self.system_prompt = system_prompt
+        self.reset_message()
+
         self.response_finished = True
 
         self.server_url = server_url
@@ -23,16 +30,11 @@ class BaseSpeechReceiverModule(ALModule):
         self.api_key = api_key
         self.model_name = model_name
 
-        self.save_csv = save_csv
-
         self.speech = ALProxy('ALTextToSpeech')
         self.memory = ALProxy("ALMemory", self.strNaoIp, self.port)
+        self.memory.subscribeToEvent("ResetConversation", self.getName(), "reset_message")
 
-        try:
-            ALModule.__init__(self, strModuleName )
-            self.BIND_PYTHON( self.getName(),"callback" )
-        except BaseException as err:
-            print( "ERR: ReceiverModule: loading error: %s" % str(err) )
+        self.save_csv = save_csv
 
         if self.save_csv:
             with open('dialogue.csv', 'w') as f:
@@ -43,6 +45,12 @@ class BaseSpeechReceiverModule(ALModule):
     def __del__( self ):
         print( "INF: ReceiverModule.__del__: cleaning everything" )
         self.stop()
+
+    def reset_message(self):
+        self.messages = [{
+            "role":"system",
+            "content": self.system_prompt or "You are an assistant names Pepper, your job is to answer users' questions in short."
+        }]
 
     def start( self ):
         self.memory.subscribeToEvent("SpeechRecognition", self.getName(), "processRemote")

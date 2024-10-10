@@ -122,6 +122,7 @@ def main():
     memory.declareEvent("SpeechRecognition")
     memory.declareEvent("Speaking")
     memory.declareEvent("EyeContact")
+    memory.declareEvent("ResetConversation")
 
     speech_recoginition_url = os.getenv('SPEECH_RECOGINITION_URL') or server_url
 
