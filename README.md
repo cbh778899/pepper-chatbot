@@ -49,6 +49,7 @@ Available fields are listed below:
 * `RECORD_DURATION` - **Float**: Maximum recording time in seconds. Default `7.0` 
 * `LOOK_AHEAD_DURATION` - **Float**: Amount of seconds before the threshold trigger that will be included in the request. Default `0.5`
 * `AUTO_DETECTION_THREADSHOLD` - **Integer**: Threadshold of autodetection. Default `5`
+* `WEBVIEW` - **String**: Specify the url of a html file, load with the built-in webview after all modules started.
 ## Flags
 There are some flags you can set when running, available flags are listed below:
 * `--ip`: Specify the IP Address of Pepper robot, default `localhost`
@@ -62,6 +63,7 @@ There are some flags you can set when running, available flags are listed below:
 * `--save-csv`: Set to save conversation to `dialogue.csv`
 * `--prompt`: Specify the system prompt to use in AI Chat Completions.
 * `--fprompt`: Load the system prompt from a file, if the `--propmt` option specified, this will be ignored.
+* `--webview`: Load a html file using built-in webview when started.
 ### Example Usage:
 ```sh
 python start.py --url "http://<ec2-instance-public-DNS>/v1" --save-csv

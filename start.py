@@ -25,6 +25,8 @@ MODEL_NAME = os.getenv('MODEL_NAME')
 API_KEY = os.getenv('API_KEY')
 SPEECH_API_KEY = os.getenv('SPEECH_API_KEY') or API_KEY
 
+WEBVIEW = os.getenv('WEBVIEW') or ''
+
 def main():
     parser = OptionParser()
     parser.add_option("--ip",
@@ -62,6 +64,9 @@ def main():
     parser.add_option("--fprompt",
         help="Add a system prompt load from a file, specify the file name to . If --prompt is specified, ignore this",
         dest="fprompt")
+    parser.add_option("--webview",
+        help="Start a webview server when this script starts. Speficy the url of webview.",
+        dest="webview")
     parser.set_defaults(
         ip=NAO_IP,
         port=NAO_PORT,
@@ -73,7 +78,8 @@ def main():
         model_name=MODEL_NAME,
         save_csv=False,
         prompt='',
-        fprompt=''
+        fprompt='',
+        webview=WEBVIEW
     )
 
     opts = parser.parse_args()[0]
@@ -89,6 +95,7 @@ def main():
     save_csv = opts.save_csv
     prompt=opts.prompt
     fprompt=opts.fprompt
+    webview = opts.webview
 
     if not server_url:
         print('Error: Services route not specified!')
@@ -152,6 +159,11 @@ def main():
         system_prompt=prompt
     )
     Receiver.start()
+
+    if webview:
+        tablet_service = ALProxy("ALTabletService")
+        tablet_service.loadUrl(webview)
+        tablet_service.showWebview()
 
     try:
         while True:
