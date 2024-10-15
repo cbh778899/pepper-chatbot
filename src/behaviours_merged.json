@@ -1,0 +1,1740 @@
+[
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/SpaceShuttle_1"
+        ],
+        "input_keywords": [
+            "fly",
+            "flying",
+            "flight",
+            "shuttle",
+            "space shuttle",
+            "space"
+        ],
+        "output_keywords": [
+            "shuttle",
+            "space",
+            "space shuttle"
+        ],
+        "chatbot_response": false
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/ScratchLeg_1",
+            "animations/Stand/Waiting/ScratchBack_1",
+            "animations/Stand/Waiting/ScratchEye_1",
+            "animations/Stand/Waiting/ScratchBottom_1",
+            "animations/Stand/Waiting/ScratchTorso_1",
+            "animations/Stand/Waiting/ScratchHead_1",
+            "animations/Stand/Waiting/ScratchHand_1"
+        ],
+        "input_keywords": [
+            "scratch head",
+            "scratch"
+        ],
+        "output_keywords": [
+            "scratch",
+            "scratching"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/HappyBirthday_1"
+        ],
+        "input_keywords": [
+            "happy birthday"
+        ],
+        "output_keywords": [
+            "birthday"
+        ],
+        "chatbot_response": false
+    },
+    {
+        "behaviours": [
+            "animations/Stand/BodyTalk/Listening/Listening_2",
+            "animations/Stand/BodyTalk/Listening/Listening_5",
+            "animations/Stand/BodyTalk/Listening/Listening_7",
+            "animations/Stand/BodyTalk/Listening/Listening_6",
+            "animations/Stand/BodyTalk/Listening/Listening_4",
+            "animations/Stand/BodyTalk/Listening/Listening_3",
+            "animations/Stand/BodyTalk/Listening/Listening_1"
+        ],
+        "input_keywords": [
+            "listening",
+            "hear"
+        ],
+        "output_keywords": [
+            "listening"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Positive/Happy_1",
+            "animations/Stand/Emotions/Positive/Happy_3",
+            "animations/Stand/Emotions/Positive/Happy_4",
+            "animations/Stand/Emotions/Neutral/Happy_1",
+            "animations/Stand/Emotions/Positive/Happy_2"
+        ],
+        "input_keywords": [
+            "happy",
+            "joyful"
+        ],
+        "output_keywords": [
+            "happy",
+            "joyful"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Positive/Laugh_2",
+            "animations/Stand/Emotions/Positive/Laugh_1",
+            "animations/Stand/Emotions/Positive/Laugh_3"
+        ],
+        "input_keywords": [
+            "laughter",
+            "laugh"
+        ],
+        "output_keywords": [
+            "funny",
+            "laugh"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Positive/Excited_1",
+            "animations/Stand/Emotions/Positive/Excited_2",
+            "animations/Stand/Emotions/Positive/Excited_3"
+        ],
+        "input_keywords": [
+            "excited",
+            "thrilled"
+        ],
+        "output_keywords": [
+            "excited",
+            "thrilled"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Negative/Sad_1",
+            "animations/Stand/Emotions/Neutral/Sad_1",
+            "animations/Stand/Emotions/Negative/Sad_2"
+        ],
+        "input_keywords": [
+            "unhappy",
+            "sad"
+        ],
+        "output_keywords": [
+            "unhappy",
+            "sad"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_6",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_8",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_9",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_3",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_15",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_13",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_5",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_1",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_2",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_4",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_12",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_16",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_7",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_11",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_10",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_14"
+        ],
+        "input_keywords": [
+            "talking",
+            "speaking"
+        ],
+        "output_keywords": [
+            "talking",
+            "speaking"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Reactions/TouchHead_1",
+            "animations/Stand/Reactions/TouchHead_2",
+            "animations/Stand/Reactions/TouchHead_3",
+            "animations/Stand/Reactions/TouchHead_4"
+        ],
+        "input_keywords": [
+            "touch head",
+            "head"
+        ],
+        "output_keywords": [
+            "touch head",
+            "head"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/ShowSky_4",
+            "animations/Stand/Gestures/ShowSky_9",
+            "animations/Stand/Gestures/ShowSky_5",
+            "animations/Stand/Gestures/ShowSky_11",
+            "animations/Stand/Gestures/ShowSky_6",
+            "animations/Stand/Gestures/ShowSky_2",
+            "animations/Stand/Gestures/ShowSky_1",
+            "animations/Stand/Gestures/ShowSky_12",
+            "animations/Stand/Waiting/ShowSky_2",
+            "animations/Stand/Waiting/ShowSky_1",
+            "animations/Stand/Gestures/ShowSky_8",
+            "animations/Stand/Gestures/ShowSky_3"
+        ],
+        "input_keywords": [
+            "show sky",
+            "sky"
+        ],
+        "output_keywords": [
+            "showing sky",
+            "sky display"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Salute_2",
+            "animations/Stand/Gestures/Salute_3",
+            "animations/Stand/Gestures/Salute_1"
+        ],
+        "input_keywords": [
+            "greet",
+            "salute"
+        ],
+        "output_keywords": [
+            "saluting",
+            "greeting"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Mime_1",
+            "animations/Stand/Gestures/Mime_2"
+        ],
+        "input_keywords": [
+            "mime",
+            "act"
+        ],
+        "output_keywords": [
+            "acting",
+            "miming"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/WhatSThis_12",
+            "animations/Stand/Gestures/WhatSThis_8",
+            "animations/Stand/Gestures/WhatSThis_1",
+            "animations/Stand/Gestures/WhatSThis_5",
+            "animations/Stand/Gestures/WhatSThis_6",
+            "animations/Stand/Gestures/WhatSThis_2",
+            "animations/Stand/Gestures/WhatSThis_7",
+            "animations/Stand/Gestures/WhatSThis_4",
+            "animations/Stand/Gestures/WhatSThis_11",
+            "animations/Stand/Gestures/WhatSThis_10",
+            "animations/Stand/Gestures/WhatSThis_15",
+            "animations/Stand/Gestures/WhatSThis_9",
+            "animations/Stand/Gestures/WhatSThis_13",
+            "animations/Stand/Gestures/WhatSThis_14",
+            "animations/Stand/Gestures/WhatSThis_16",
+            "animations/Stand/Gestures/WhatSThis_3"
+        ],
+        "input_keywords": [
+            "what's this",
+            "question"
+        ],
+        "output_keywords": [
+            "what is this",
+            "questioning"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Nothing_2",
+            "animations/Stand/Gestures/Nothing_1"
+        ],
+        "input_keywords": [
+            "none",
+            "nothing"
+        ],
+        "output_keywords": [
+            "none",
+            "nothing"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Maybe_1"
+        ],
+        "input_keywords": [
+            "maybe",
+            "perhaps"
+        ],
+        "output_keywords": [
+            "maybe",
+            "perhaps"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Wings_3",
+            "animations/Stand/Gestures/Wings_2",
+            "animations/Stand/Gestures/Wings_5",
+            "animations/Stand/Gestures/Wings_4"
+        ],
+        "input_keywords": [
+            "fly",
+            "wings"
+        ],
+        "output_keywords": [
+            "wings",
+            "flying"
+        ],
+        "chatbot_response": false
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/IDontKnow_1",
+            "animations/Stand/Gestures/IDontKnow_6",
+            "animations/Stand/Gestures/IDontKnow_2",
+            "animations/Stand/Gestures/IDontKnow_4",
+            "animations/Stand/Gestures/IDontKnow_5"
+        ],
+        "input_keywords": [
+            "i don't know",
+            "unsure"
+        ],
+        "output_keywords": [
+            "i don't know",
+            "unsure"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Explain_7",
+            "animations/Stand/Gestures/Explain_3",
+            "animations/Stand/Gestures/Explain_6",
+            "animations/Stand/Gestures/Explain_5",
+            "animations/Stand/Gestures/Explain_8",
+            "animations/Stand/Gestures/Explain_11",
+            "animations/Stand/Gestures/Explain_2",
+            "animations/Stand/Gestures/Explain_10",
+            "animations/Stand/Gestures/Explain_4"
+        ],
+        "input_keywords": [
+            "explain",
+            "clarify"
+        ],
+        "output_keywords": [
+            "clarifying",
+            "explaining"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/CountThree_1"
+        ],
+        "input_keywords": [
+            "count three",
+            "three"
+        ],
+        "output_keywords": [
+            "counting three",
+            "three"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Far_3",
+            "animations/Stand/Gestures/Far_1",
+            "animations/Stand/Gestures/Far_2"
+        ],
+        "input_keywords": [
+            "far",
+            "distant"
+        ],
+        "output_keywords": [
+            "far",
+            "distant"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Enthusiastic_3",
+            "animations/Stand/Emotions/Neutral/Excited_1",
+            "animations/Stand/Gestures/Enthusiastic_5",
+            "animations/Stand/Gestures/Excited_1",
+            "animations/Stand/Gestures/Enthusiastic_4"
+        ],
+        "input_keywords": [
+            "enthusiastic",
+            "excited"
+        ],
+        "output_keywords": [
+            "enthusiastic",
+            "excited"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Yum_1"
+        ],
+        "input_keywords": [
+            "yum",
+            "delicious"
+        ],
+        "output_keywords": [
+            "yum",
+            "delicious"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Give_3",
+            "animations/Stand/Gestures/Give_5"
+        ],
+        "input_keywords": [
+            "give",
+            "hand over"
+        ],
+        "output_keywords": [
+            "giving",
+            "handing over"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Angry_1",
+            "animations/Stand/Gestures/Angry_2",
+            "animations/Stand/Gestures/Angry_3"
+        ],
+        "input_keywords": [
+            "mad",
+            "angry"
+        ],
+        "output_keywords": [
+            "mad",
+            "angry"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Please_1",
+            "animations/Stand/Gestures/Please_3",
+            "animations/Stand/Gestures/Please_2"
+        ],
+        "input_keywords": [
+            "please",
+            "request"
+        ],
+        "output_keywords": [
+            "please",
+            "requesting"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Stretch_1",
+            "animations/Stand/Waiting/Stretch_1",
+            "animations/Stand/Gestures/Stretch_2"
+        ],
+        "input_keywords": [
+            "stretch",
+            "extend"
+        ],
+        "output_keywords": [
+            "stretching",
+            "extending"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/CalmDown_3",
+            "animations/Stand/Gestures/CalmDown_5",
+            "animations/Stand/Gestures/CalmDown_4",
+            "animations/Stand/Gestures/CalmDown_2",
+            "animations/Stand/Gestures/CalmDown_6"
+        ],
+        "input_keywords": [
+            "relax",
+            "calm down"
+        ],
+        "output_keywords": [
+            "calming down",
+            "relaxing"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Reject_5",
+            "animations/Stand/Gestures/Reject_6",
+            "animations/Stand/Gestures/Reject_4",
+            "animations/Stand/Gestures/Reject_1",
+            "animations/Stand/Gestures/Reject_3",
+            "animations/Stand/Gestures/Reject_2"
+        ],
+        "input_keywords": [
+            "reject",
+            "decline"
+        ],
+        "output_keywords": [
+            "declining",
+            "rejecting"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/YouKnowWhat_6",
+            "animations/Stand/Gestures/YouKnowWhat_2",
+            "animations/Stand/Gestures/YouKnowWhat_5",
+            "animations/Stand/Gestures/YouKnowWhat_3",
+            "animations/Stand/Gestures/YouKnowWhat_4"
+        ],
+        "input_keywords": [
+            "guess what",
+            "you know what"
+        ],
+        "output_keywords": [
+            "guessing what",
+            "you know what"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/CountFour_1"
+        ],
+        "input_keywords": [
+            "four",
+            "count four"
+        ],
+        "output_keywords": [
+            "counting four",
+            "four"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/TakePlace_2",
+            "animations/Stand/Gestures/TakePlace_1"
+        ],
+        "input_keywords": [
+            "happen",
+            "take place"
+        ],
+        "output_keywords": [
+            "happening",
+            "taking place"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Surprised_1",
+            "animations/Stand/Gestures/Surprised_1"
+        ],
+        "input_keywords": [
+            "shocked",
+            "surprised"
+        ],
+        "output_keywords": [
+            "shocked",
+            "shocking",
+            "surprised"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Take_1"
+        ],
+        "input_keywords": [
+            "take",
+            "grab"
+        ],
+        "output_keywords": [
+            "grabbing",
+            "taking"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Follow_1"
+        ],
+        "input_keywords": [
+            "come",
+            "follow"
+        ],
+        "output_keywords": [
+            "coming",
+            "following"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Shy_1"
+        ],
+        "input_keywords": [
+            "shy",
+            "bashful"
+        ],
+        "output_keywords": [
+            "shy",
+            "bashful"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/BowShort_2",
+            "animations/Stand/Gestures/BowShort_3"
+        ],
+        "input_keywords": [
+            "short bow",
+            "bow"
+        ],
+        "output_keywords": [
+            "bowing",
+            "short bow"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/No_1",
+            "animations/Stand/Gestures/No_9",
+            "animations/Stand/Gestures/No_4",
+            "animations/Stand/Gestures/No_5",
+            "animations/Stand/Gestures/No_7",
+            "animations/Stand/Gestures/No_8",
+            "animations/Stand/Gestures/No_3",
+            "animations/Stand/Gestures/No_2",
+            "animations/Stand/Gestures/No_6"
+        ],
+        "input_keywords": [
+            "no",
+            "negative"
+        ],
+        "output_keywords": [
+            "no",
+            "negative"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Next_1"
+        ],
+        "input_keywords": [
+            "next",
+            "following"
+        ],
+        "output_keywords": [
+            "next",
+            "following"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/CountFive_1"
+        ],
+        "input_keywords": [
+            "count five",
+            "five"
+        ],
+        "output_keywords": [
+            "counting five",
+            "five"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Look_1"
+        ],
+        "input_keywords": [
+            "look",
+            "see"
+        ],
+        "output_keywords": [
+            "seeing",
+            "looking"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/DontUnderstand_1"
+        ],
+        "input_keywords": [
+            "confused",
+            "don't understand"
+        ],
+        "output_keywords": [
+            "confused",
+            "not understanding"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/OnTheEvening_4",
+            "animations/Stand/Gestures/OnTheEvening_3"
+        ],
+        "input_keywords": [
+            "on the evening",
+            "evening"
+        ],
+        "output_keywords": [
+            "evening",
+            "in the evening"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Confused_2",
+            "animations/Stand/Gestures/Confused_1",
+            "animations/Stand/Emotions/Neutral/Puzzled_1"
+        ],
+        "input_keywords": [
+            "puzzled",
+            "confused"
+        ],
+        "output_keywords": [
+            "puzzled",
+            "confused"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/This_11",
+            "animations/Stand/Gestures/This_4",
+            "animations/Stand/Gestures/This_3"
+        ],
+        "input_keywords": [
+            "here",
+            "this"
+        ],
+        "output_keywords": [
+            "here",
+            "this"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Great_1"
+        ],
+        "input_keywords": [
+            "awesome",
+            "great"
+        ],
+        "output_keywords": [
+            "awesome",
+            "great"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/ComeOn_1"
+        ],
+        "input_keywords": [
+            "come on",
+            "let's go"
+        ],
+        "output_keywords": [
+            "coming on",
+            "going"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Choice_1"
+        ],
+        "input_keywords": [
+            "choice",
+            "option"
+        ],
+        "output_keywords": [
+            "option",
+            "choosing"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/ShowTablet_3"
+        ],
+        "input_keywords": [
+            "show tablet",
+            "tablet"
+        ],
+        "output_keywords": [
+            "tablet display",
+            "showing tablet"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Hot_2",
+            "animations/Stand/Gestures/Hot_1"
+        ],
+        "input_keywords": [
+            "hot",
+            "warm"
+        ],
+        "output_keywords": [
+            "hot",
+            "warm"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Joy_1"
+        ],
+        "input_keywords": [
+            "joy",
+            "happy"
+        ],
+        "output_keywords": [
+            "happy",
+            "joyful"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/HeSays_1"
+        ],
+        "input_keywords": [
+            "he says",
+            "he said"
+        ],
+        "output_keywords": [
+            "he says",
+            "he said"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/But_1"
+        ],
+        "input_keywords": [
+            "however",
+            "but"
+        ],
+        "output_keywords": [
+            "however",
+            "but"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Kisses_1"
+        ],
+        "input_keywords": [
+            "kisses",
+            "kiss"
+        ],
+        "output_keywords": [
+            "kissing",
+            "kiss"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/PlayHands_3",
+            "animations/Stand/Waiting/PlayHands_1",
+            "animations/Stand/Waiting/PlayHands_2"
+        ],
+        "input_keywords": [
+            "play hands",
+            "hands"
+        ],
+        "output_keywords": [
+            "playing hands",
+            "hands"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Innocent_1",
+            "animations/Stand/Waiting/Innocent_1"
+        ],
+        "input_keywords": [
+            "innocent",
+            "pure"
+        ],
+        "output_keywords": [
+            "innocent",
+            "pure"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/MysticalPower_1"
+        ],
+        "input_keywords": [
+            "mystical power",
+            "magic"
+        ],
+        "output_keywords": [
+            "mystical power",
+            "magic"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Relaxation_4",
+            "animations/Stand/Waiting/Relaxation_1",
+            "animations/Stand/Waiting/Relaxation_2",
+            "animations/Stand/Waiting/Relaxation_3"
+        ],
+        "input_keywords": [
+            "relax",
+            "relaxation"
+        ],
+        "output_keywords": [
+            "relaxing",
+            "relaxation"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Rest_1"
+        ],
+        "input_keywords": [
+            "rest",
+            "relax"
+        ],
+        "output_keywords": [
+            "relaxing",
+            "resting"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/ShowMuscles_1",
+            "animations/Stand/Waiting/ShowMuscles_4",
+            "animations/Stand/Waiting/ShowMuscles_2"
+        ],
+        "input_keywords": [
+            "muscles",
+            "show muscles"
+        ],
+        "output_keywords": [
+            "showing muscles",
+            "muscles"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/CallSomeone_1"
+        ],
+        "input_keywords": [
+            "call",
+            "call someone"
+        ],
+        "output_keywords": [
+            "calling someone",
+            "call"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Helicopter_1"
+        ],
+        "input_keywords": [
+            "chopper",
+            "helicopter"
+        ],
+        "output_keywords": [
+            "chopper",
+            "helicopter"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/BreathLoop_3",
+            "animations/Stand/Waiting/BreathLoop_1",
+            "animations/Stand/Waiting/BreathLoop_2"
+        ],
+        "input_keywords": [
+            "breath loop",
+            "breathing"
+        ],
+        "output_keywords": [
+            "breathing loop",
+            "breathing"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/DriveCar_1"
+        ],
+        "input_keywords": [
+            "drive car",
+            "car"
+        ],
+        "output_keywords": [
+            "car",
+            "driving car"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Zombie_1"
+        ],
+        "input_keywords": [
+            "zombie",
+            "undead"
+        ],
+        "output_keywords": [
+            "zombie",
+            "undead"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Binoculars_1"
+        ],
+        "input_keywords": [
+            "look",
+            "binoculars"
+        ],
+        "output_keywords": [
+            "binoculars",
+            "looking"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/FunnyDancer_1"
+        ],
+        "input_keywords": [
+            "funny dancer",
+            "dance"
+        ],
+        "output_keywords": [
+            "funny dancing",
+            "dancing"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/AirGuitar_1"
+        ],
+        "input_keywords": [
+            "guitar",
+            "air guitar"
+        ],
+        "output_keywords": [
+            "guitar",
+            "air guitar"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Taxi_1"
+        ],
+        "input_keywords": [
+            "cab",
+            "taxi"
+        ],
+        "output_keywords": [
+            "cab",
+            "taxi"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/KungFu_1"
+        ],
+        "input_keywords": [
+            "martial arts",
+            "kung fu"
+        ],
+        "output_keywords": [
+            "martial arts",
+            "kung fu"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Fitness_1",
+            "animations/Stand/Waiting/Fitness_3",
+            "animations/Stand/Waiting/Fitness_2"
+        ],
+        "input_keywords": [
+            "exercise",
+            "fitness"
+        ],
+        "output_keywords": [
+            "exercising",
+            "fitness"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/LoveYou_1"
+        ],
+        "input_keywords": [
+            "affection",
+            "love you"
+        ],
+        "output_keywords": [
+            "loving you",
+            "affection"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/LookHand_1",
+            "animations/Stand/Waiting/LookHand_2"
+        ],
+        "input_keywords": [
+            "look hand",
+            "hand"
+        ],
+        "output_keywords": [
+            "looking hand",
+            "hand"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/TakePicture_1"
+        ],
+        "input_keywords": [
+            "photo",
+            "take picture"
+        ],
+        "output_keywords": [
+            "photo",
+            "taking picture"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/KnockEye_1"
+        ],
+        "input_keywords": [
+            "knock eye",
+            "eye"
+        ],
+        "output_keywords": [
+            "eye",
+            "knocking eye"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Monster_1"
+        ],
+        "input_keywords": [
+            "monster",
+            "creature"
+        ],
+        "output_keywords": [
+            "monster",
+            "creature"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Bandmaster_1"
+        ],
+        "input_keywords": [
+            "bandmaster",
+            "conductor"
+        ],
+        "output_keywords": [
+            "bandmaster",
+            "conductor"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Drink_1"
+        ],
+        "input_keywords": [
+            "sip",
+            "drink"
+        ],
+        "output_keywords": [
+            "drinking",
+            "sipping"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Think_3",
+            "animations/Stand/Waiting/Think_2",
+            "animations/Stand/Waiting/Think_4"
+        ],
+        "input_keywords": [
+            "ponder",
+            "think"
+        ],
+        "output_keywords": [
+            "thinking",
+            "pondering"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/HideHands_1"
+        ],
+        "input_keywords": [
+            "hide",
+            "hide hands"
+        ],
+        "output_keywords": [
+            "hide",
+            "hiding hands"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Waddle_2",
+            "animations/Stand/Waiting/Waddle_1"
+        ],
+        "input_keywords": [
+            "walk",
+            "waddle"
+        ],
+        "output_keywords": [
+            "walking",
+            "waddling"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/Knight_1"
+        ],
+        "input_keywords": [
+            "warrior",
+            "knight"
+        ],
+        "output_keywords": [
+            "warrior",
+            "knight"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/HideEyes_1"
+        ],
+        "input_keywords": [
+            "hide",
+            "hide eyes"
+        ],
+        "output_keywords": [
+            "hide",
+            "hiding eyes"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Waiting/WakeUp_1"
+        ],
+        "input_keywords": [
+            "awake",
+            "wake up"
+        ],
+        "output_keywords": [
+            "waking up",
+            "awake"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Cautious_1"
+        ],
+        "input_keywords": [
+            "careful",
+            "cautious"
+        ],
+        "output_keywords": [
+            "careful",
+            "cautious"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Embarrassed_1"
+        ],
+        "input_keywords": [
+            "shy",
+            "embarrassed"
+        ],
+        "output_keywords": [
+            "shy",
+            "embarrassed"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/AskForAttention_1",
+            "animations/Stand/Emotions/Neutral/AskForAttention_3"
+        ],
+        "input_keywords": [
+            "ask for attention",
+            "attention"
+        ],
+        "output_keywords": [
+            "asking for attention",
+            "attention"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Hesitation_1"
+        ],
+        "input_keywords": [
+            "hesitate",
+            "hesitation"
+        ],
+        "output_keywords": [
+            "hesitation",
+            "hesitating"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Stubborn_1"
+        ],
+        "input_keywords": [
+            "obstinate",
+            "stubborn"
+        ],
+        "output_keywords": [
+            "obstinate",
+            "stubborn"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Mischievous_1"
+        ],
+        "input_keywords": [
+            "mischievous",
+            "naughty"
+        ],
+        "output_keywords": [
+            "mischievous",
+            "naughty"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Suspicious_1"
+        ],
+        "input_keywords": [
+            "suspicious",
+            "doubtful"
+        ],
+        "output_keywords": [
+            "suspicious",
+            "doubtful"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Alienated_1"
+        ],
+        "input_keywords": [
+            "alienated",
+            "isolated"
+        ],
+        "output_keywords": [
+            "alienated",
+            "isolated"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Curious_1"
+        ],
+        "input_keywords": [
+            "curious",
+            "inquisitive"
+        ],
+        "output_keywords": [
+            "curious",
+            "inquisitive"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Disappointed_1"
+        ],
+        "input_keywords": [
+            "let down",
+            "disappointed"
+        ],
+        "output_keywords": [
+            "let down",
+            "disappointed"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Impressed_1"
+        ],
+        "input_keywords": [
+            "amazed",
+            "impressed"
+        ],
+        "output_keywords": [
+            "amazed",
+            "impressed"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Interested_1"
+        ],
+        "input_keywords": [
+            "engaged",
+            "interested"
+        ],
+        "output_keywords": [
+            "engaged",
+            "interested"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Relieved_1"
+        ],
+        "input_keywords": [
+            "comforted",
+            "relieved"
+        ],
+        "output_keywords": [
+            "comforted",
+            "relieved"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Emotions/Neutral/Thoughtful_1"
+        ],
+        "input_keywords": [
+            "pensive",
+            "thoughtful"
+        ],
+        "output_keywords": [
+            "pensive",
+            "thoughtful"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/LED/CircleEyes"
+        ],
+        "input_keywords": [
+            "circle eyes",
+            "led eyes"
+        ],
+        "output_keywords": [
+            "circle eyes",
+            "led display"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/ShowTablet_1"
+        ],
+        "input_keywords": [
+            "show tablet",
+            "display tablet"
+        ],
+        "output_keywords": [
+            "tablet display",
+            "showing tablet"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Hey_1",
+            "animations/Stand/Gestures/Hey_9",
+            "animations/Stand/Gestures/Hey_7",
+            "animations/Stand/Gestures/Hey_6",
+            "animations/Stand/Gestures/Hey_2",
+            "animations/Stand/Gestures/Hey_10",
+            "animations/Stand/Gestures/Hey_3",
+            "animations/Stand/Gestures/Hey_8",
+            "animations/Stand/Gestures/Hey_4"
+        ],
+        "input_keywords": [
+            "hey",
+            "hello"
+        ],
+        "output_keywords": [
+            "hey there",
+            "greeting",
+            "hey",
+            "hello"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Thinking_7",
+            "animations/Stand/Gestures/Thinking_6",
+            "animations/Stand/Gestures/Thinking_2",
+            "animations/Stand/Gestures/Thinking_5",
+            "animations/Stand/Gestures/Thinking_1",
+            "animations/Stand/Gestures/Thinking_4",
+            "animations/Stand/Gestures/Thinking_3",
+            "animations/Stand/Gestures/Thinking_8"
+        ],
+        "input_keywords": [
+            "thinking",
+            "ponder"
+        ],
+        "output_keywords": [
+            "thinking"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Me_7",
+            "animations/Stand/Gestures/Me_8",
+            "animations/Stand/Gestures/Me_4",
+            "animations/Stand/Gestures/Me_1",
+            "animations/Stand/Gestures/Me_2"
+        ],
+        "input_keywords": [
+            "yourself",
+            "you"
+        ],
+        "output_keywords": [
+            "it's me",
+            "me"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Desperate_2",
+            "animations/Stand/Gestures/Desperate_3",
+            "animations/Stand/Gestures/Desperate_4",
+            "animations/Stand/Gestures/Desperate_1",
+            "animations/Stand/Gestures/Desperate_5"
+        ],
+        "input_keywords": [
+            "urgent",
+            "desperate"
+        ],
+        "output_keywords": [
+            "desperate"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/This_11",
+            "animations/Stand/Gestures/This_13",
+            "animations/Stand/Gestures/This_9",
+            "animations/Stand/Gestures/This_15",
+            "animations/Stand/Gestures/This_7",
+            "animations/Stand/Gestures/This_8",
+            "animations/Stand/Gestures/This_1",
+            "animations/Stand/Gestures/This_12",
+            "animations/Stand/Gestures/This_6",
+            "animations/Stand/Gestures/This_2",
+            "animations/Stand/Gestures/This_14",
+            "animations/Stand/Gestures/This_10"
+        ],
+        "input_keywords": [
+            "pointing",
+            "this"
+        ],
+        "output_keywords": [
+            "pointing",
+            "this"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Everything_1",
+            "animations/Stand/Gestures/Everything_2",
+            "animations/Stand/Gestures/Everything_6",
+            "animations/Stand/Gestures/Everything_4",
+            "animations/Stand/Gestures/Everything_3"
+        ],
+        "input_keywords": [
+            "everything"
+        ],
+        "output_keywords": [
+            "everything"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Give_4",
+            "animations/Stand/Gestures/Give_6",
+            "animations/Stand/Gestures/Give_5",
+            "animations/Stand/Gestures/Give_2",
+            "animations/Stand/Gestures/Give_1",
+            "animations/Stand/Gestures/Give_3"
+        ],
+        "input_keywords": [
+            "offer",
+            "give"
+        ],
+        "output_keywords": [
+            "offering",
+            "give"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/ShowFloor_2",
+            "animations/Stand/Gestures/ShowFloor_4",
+            "animations/Stand/Gestures/ShowFloor_5",
+            "animations/Stand/Gestures/ShowFloor_1",
+            "animations/Stand/Gestures/ShowFloor_3"
+        ],
+        "input_keywords": [
+            "show floor",
+            "floor"
+        ],
+        "output_keywords": [
+            "show floor",
+            "floor"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/Yes_1",
+            "animations/Stand/Gestures/Yes_2",
+            "animations/Stand/Gestures/Yes_3"
+        ],
+        "input_keywords": [
+            "yes",
+            "agree"
+        ],
+        "output_keywords": [
+            "yes"
+        ],
+        "chatbot_response": true
+    },
+    {
+        "behaviours": [
+            "animations/Stand/Gestures/You_5",
+            "animations/Stand/Gestures/You_3",
+            "animations/Stand/Gestures/You_2",
+            "animations/Stand/Gestures/You_4",
+            "animations/Stand/Gestures/You_1"
+        ],
+        "input_keywords": [
+            "myself",
+            "me"
+        ],
+        "output_keywords": [
+            "yourself",
+            "you"
+        ],
+        "chatbot_response": true
+    }
+]

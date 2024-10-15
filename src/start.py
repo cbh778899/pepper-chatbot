@@ -64,6 +64,9 @@ def main():
     parser.add_option("--fprompt",
         help="Add a system prompt load from a file, specify the file name to . If --prompt is specified, ignore this",
         dest="fprompt")
+    parser.add_option("--fbehaviours",
+        help="Add a system behaviour json file, specify the file name.",
+        dest="fbehaviours")
     parser.add_option("--webview",
         help="Start a webview server when this script starts. Speficy the url of webview.",
         dest="webview")
@@ -79,6 +82,7 @@ def main():
         save_csv=False,
         prompt='',
         fprompt='',
+        fbehaviours='',
         webview=WEBVIEW
     )
 
@@ -95,6 +99,7 @@ def main():
     save_csv = opts.save_csv
     prompt=opts.prompt
     fprompt=opts.fprompt
+    fbehaviours=opts.fbehaviours
     webview = opts.webview
 
     if not server_url:
@@ -156,7 +161,7 @@ def main():
         "Receiver", ip, port,
         server_url=server_url, base_route=chat_route,
         api_key=api_key, model_name=model_name, save_csv=save_csv,
-        system_prompt=prompt
+        system_prompt=prompt, behavior_file=fbehaviours
     )
     Receiver.start()
 
