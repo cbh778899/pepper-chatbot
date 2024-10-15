@@ -13,6 +13,7 @@ class BehaviourExecutor:
         keywords_type = 'input_keywords' if is_input else 'output_keywords'
         should_respond = True
         behaviour_triggered = False
+        self.memory = ALProxy("ALMemory", nao_ip, nao_port)
 
         for behaviour in self.behaviours:
             messages = re.findall(r'\b\w+\b', message.lower())
@@ -24,19 +25,21 @@ class BehaviourExecutor:
                 # Convert selected_behaviour to string if it is not
                 if not isinstance(selected_behaviour, str):
                     selected_behaviour = str(selected_behaviour)
-                    # print "Error: Selected behaviour is not a string: {}".format(selected_behaviour)
-                    # continue
 
                 animation_player_service = ALProxy("ALAnimationPlayer", nao_ip, nao_port)
                 chatbot_response = behaviour.get('chatbot_response', False)
                 if chatbot_response:
                     print "Running behaviour with following response: {}".format(selected_behaviour)
+                    self.memory.raiseEvent("Speaking",selected_behaviour)
                     animation_player_service.run(selected_behaviour, _async=False)
+                    self.memory.raiseEvent("Speaking",None)
                     behaviour_triggered = True
                     return should_respond, behaviour_triggered
                 else:
                     print "Running behaviour without response: {}".format(selected_behaviour)
+                    self.memory.raiseEvent("Speaking",selected_behaviour)
                     animation_player_service.run(selected_behaviour, _async=True)
+                    self.memory.raiseEvent("Speaking",None)
                     should_respond = False
                     behaviour_triggered = True
                     return should_respond, behaviour_triggered
