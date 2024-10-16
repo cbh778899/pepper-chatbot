@@ -1,4 +1,5 @@
 from naoqi import ALModule, ALProxy
+import time
 from tools import chat_completion
 from module_expressions import BehaviourExecutor
 
@@ -11,7 +12,7 @@ class BaseSpeechReceiverModule(ALModule):
     def __init__( 
             self, strModuleName, strNaoIp, port, 
             server_url, base_route, api_key, 
-            model_name, save_csv=False, system_prompt='', behavior_file='behaviours_merged.json'
+            model_name, save_csv=False, system_prompt='', behavior_file='behaviours_described.json'
         ):
         
         ALModule.__init__(self, strModuleName )
@@ -74,43 +75,96 @@ class BaseSpeechReceiverModule(ALModule):
 
     def processRemote(self, signalName, message):
         # Do something with the received speech recognition result
+        # If pepper is triggered, only respond to messages that contain the trigger keywords
+        PEPPER_TRIGGER = False
+        PEPPER_TRIGGER_KEYWORDS = ["pepper", "pappa", "poppa", "pepa", "papa", "pippa", "pipa", "piper", "pipper", "pipa", "pepa", "peppa"]
+ 
+        # If we are in a pepper trigger mode, we should only respond to messages that contain the trigger keywords
+        if PEPPER_TRIGGER and not any(keyword in message.lower() for keyword in PEPPER_TRIGGER_KEYWORDS):
+            return
         
-        print("DEBUG: Executing behaviour with message: {}".format(message))
-        should_respond, behaviour_triggered = self.executor.execute_behaviour(message, is_input=True, nao_ip=self.strNaoIp, nao_port=self.port)
+        print("DEBUG: Received message: {}".format(message))
         
-        # animation_player_service = ALProxy("ALAnimationPlayer", self.strNaoIp, self.port)
+        self.messages.append({'role':'user', 'content': message})
         
-        # if "pepper" in message.lower() or "pappa" in message.lower() or "poppa" in message.lower():
-            # animation_player_service.run("animations/Stand/Waiting/SpaceShuttle_1",_async=True)
-            # should_respond = True
+        start_time = time.time()
 
-        print("DEBUG: should_respond: {}, behaviour_triggered: {}".format(should_respond, behaviour_triggered))
-        if should_respond:
-            self.messages.append({'role':'user', 'content': message})
-            # print("DEBUG: Sending messages to chat_completion: {}".format(self.messages))
-            resp_text = chat_completion(
-            self.server_url, 
-            self.messages, 
-            route=self.base_route, 
-            model_name=self.model_name, 
-            api_key=self.api_key
-            )
-            print("DEBUG: Received response text: {}".format(resp_text))
+        # Send the message to the chatbot server
+        resp_text = chat_completion(
+        self.server_url, 
+        self.messages, 
+        route=self.base_route, 
+        model_name=self.model_name, 
+        api_key=self.api_key
+        )
+        
+        print("DEBUG: Received response text: {}".format(resp_text))
+        print("DEBUG: Response took {} seconds.".format(time.time() - start_time))
+        
+        # Sanitize the response text to extract only the JSON component
+        json_start = resp_text.find('{')
+        json_end = resp_text.rfind('}') + 1
+        if json_start != -1 and json_end != -1:
+            resp_text = resp_text[json_start:json_end]
+        else:
+            print("DEBUG: No valid JSON found in response text.")
+            return
 
-            if resp_text:
-                # If we haven't triggered a behaviour, we should see if pepper's response triggers one
-                if not behaviour_triggered:
-                    self.executor.execute_behaviour(resp_text, is_input=False, nao_ip=self.strNaoIp, nao_port=self.port)
-
+        if resp_text:
+            # Decode the message JSON format, example: {'chat_response': 'Hey, how are you?', 'behaviour_request': 'hey', 'behaviour_order': 'before'}
+            # Only decode the message if it is in the correct JSON format
+            try:
+                message_dict = eval(resp_text.replace('true', 'True').replace('false', 'False'))
+                chat_response = message_dict.get('chat_response', '')
+                behaviour_request = message_dict.get('behaviour_request', '')
+                behaviour_order = message_dict.get('behaviour_order', 'before')
+                respond = message_dict.get('respond', False)
                 
-                print("AI Inference Result:\n================================\n"+resp_text+"\n================================\n")
-                self.memory.raiseEvent("Speaking", resp_text)
-                self.speech.say(resp_text)
-                self.memory.raiseEvent("Speaking", None)
-                self.messages.append({'role':'assistant','content':resp_text})
+                
+                if behaviour_request and not chat_response:
+                    print("DEBUG: No text response, but message does not contain 'behaviour_request'.")
 
-                if self.save_csv:
-                    with open('dialogue.csv', 'a') as f:
-                        f.write('user,"'+message.replace('"', '\\"')+'"\n')
-                        f.write('assistant,"'+resp_text.replace('"', '\\"')+'"\n')
-                        f.close()
+                elif not respond or not chat_response:
+                    print("DEBUG: Message does not contain 'chat_response' or told not to respond.")
+                    return
+
+                # If we want to respond, only respond if we have a chat_response
+                elif chat_response:
+                    resp_message = chat_response
+
+                elif not behaviour_request:
+                        print("DEBUG: No text response, but message does not contain 'behaviour_request'.")
+                        return
+
+            except (SyntaxError, NameError) as e:
+                print("DEBUG: Failed to decode message: {}".format(e))
+                return
+            
+            behaviour_triggered = False
+            
+            # Only dispaly the message if the chatbot wants to respond
+            self.memory.raiseEvent("Listening", message)
+
+            # Handle behaviour request
+            if behaviour_request and behaviour_order == 'before':
+                print("DEBUG: Executing behaviour with behaviour_request: {}".format(behaviour_request))
+                behaviour_triggered = self.executor.execute_behaviour(behaviour_request, nao_ip=self.strNaoIp, nao_port=self.port)
+              
+            print("AI Inference Result:\n================================\n"+resp_message+"\n================================\n")
+            self.memory.raiseEvent("Speaking", resp_message)
+            if respond:
+                self.speech.say(resp_message)
+            self.memory.raiseEvent("Speaking", None)
+            self.messages.append({'role':'assistant','content':resp_message})
+
+            if not behaviour_triggered and behaviour_request and behaviour_order == 'after':
+                self.executor.execute_behaviour(behaviour_request, nao_ip=self.strNaoIp, nao_port=self.port)
+
+            if self.save_csv:
+                with open('dialogue.csv', 'a') as f:
+                    f.write('user,"'+message.replace('"', '\\"')+'"\n')
+                    f.write('assistant,"'+resp_message.replace('"', '\\"')+'"\n')
+                    if behaviour_request:
+                        f.write('behaviour order,"'+behaviour_order.replace('"', '\\"')+'"\n')
+                        f.write('behaviour,"'+behaviour_request.replace('"', '\\"')+'"\n')
+                    f.close()

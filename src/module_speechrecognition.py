@@ -181,10 +181,10 @@ class SpeechRecognitionModule(ALModule):
                 if (self.startRecordingTimestamp <= 0):
                     # initialize timestamp when we start recording
                     self.startRecordingTimestamp = timestamp
-                # elif ((timestamp - self.startRecordingTimestamp) > self.recordingDuration):
-                #     # print('stop after max recording duration')
-                #     # check how long we are recording
-                #     self.stopRecordingAndRecognize()
+                elif ((timestamp - self.startRecordingTimestamp) > self.recordingDuration):
+                    print('Max recording duration hit')
+                    # check how long we are recording
+                    self.stopRecordingAndRecognize()
 
                 # stop recording after idle time (and recording at least hold time)
                 # lastTimeRMSPeak is 0 if no peak occured
@@ -196,6 +196,9 @@ class SpeechRecognitionModule(ALModule):
                 # constantly record into prebuffer for lookahead
                 self.preBuffer.append(aSoundData)
                 self.preBufferLength += len(aSoundData[0])
+                
+                # Reset the prebuffer if we are not recording
+                self.startRecordingTimestamp = -1
 
                 # remove first (oldest) item if the buffer gets bigger than required
                 # removes one block of samples as we store a list of lists...

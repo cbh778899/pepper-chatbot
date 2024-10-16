@@ -82,7 +82,7 @@ def main():
         save_csv=False,
         prompt='',
         fprompt='',
-        fbehaviours='',
+        fbehaviours='/pepperchat/behaviours/behaviours_described.json',
         webview=WEBVIEW
     )
 
@@ -133,6 +133,7 @@ def main():
     memory = ALProxy("ALMemory")
     memory.declareEvent("SpeechRecognition")
     memory.declareEvent("Speaking")
+    memory.declareEvent("Listening")
     memory.declareEvent("EyeContact")
     memory.declareEvent("ResetConversation")
 

@@ -1,0 +1,991 @@
+[
+    {
+        "behaviour_key": "airguitar",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/AirGuitar_1"
+        ],
+        "action_description": "Pepper plays the air guitar, this is a long animation"
+    },
+    {
+        "behaviour_key": "alienated",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Alienated_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "angry",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Angry_1",
+            "animations/Stand/Gestures/Angry_2",
+            "animations/Stand/Gestures/Angry_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "askforattention",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/AskForAttention_3",
+            "animations/Stand/Emotions/Neutral/AskForAttention_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "bandmaster",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Bandmaster_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "binoculars",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Binoculars_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "bodytalk",
+        "behaviour_variations": [
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_1",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_4",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_6",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_16",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_8",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_2",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_3",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_10",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_5",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_14",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_12",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_7",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_13",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_11",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_9",
+            "animations/Stand/BodyTalk/Speaking/BodyTalk_15"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "bowshort",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/BowShort_2",
+            "animations/Stand/Gestures/BowShort_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "breathloop",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/BreathLoop_3",
+            "animations/Stand/Waiting/BreathLoop_2",
+            "animations/Stand/Waiting/BreathLoop_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "but",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/But_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "callsomeone",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/CallSomeone_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "calmdown",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/CalmDown_3",
+            "animations/Stand/Gestures/CalmDown_2",
+            "animations/Stand/Gestures/CalmDown_6",
+            "animations/Stand/Gestures/CalmDown_4",
+            "animations/Stand/Gestures/CalmDown_5"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "cautious",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Cautious_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "choice",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Choice_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "circleeyes",
+        "behaviour_variations": [
+            "animations/LED/CircleEyes"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "comeon",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/ComeOn_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "confused",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Confused_2",
+            "animations/Stand/Gestures/Confused_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "countfive",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/CountFive_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "countfour",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/CountFour_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "countthree",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/CountThree_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "curious",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Curious_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "desperate",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Desperate_1",
+            "animations/Stand/Gestures/Desperate_4",
+            "animations/Stand/Gestures/Desperate_5",
+            "animations/Stand/Gestures/Desperate_2",
+            "animations/Stand/Gestures/Desperate_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "disappointed",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Disappointed_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "dontunderstand",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/DontUnderstand_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "drink",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Drink_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "drivecar",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/DriveCar_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "embarrassed",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Embarrassed_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "enthusiastic",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Enthusiastic_4",
+            "animations/Stand/Gestures/Enthusiastic_3",
+            "animations/Stand/Gestures/Enthusiastic_5"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "everything",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Everything_3",
+            "animations/Stand/Gestures/Everything_4",
+            "animations/Stand/Gestures/Everything_2",
+            "animations/Stand/Gestures/Everything_1",
+            "animations/Stand/Gestures/Everything_6"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "excited",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Positive/Excited_3",
+            "animations/Stand/Emotions/Neutral/Excited_1",
+            "animations/Stand/Emotions/Positive/Excited_2",
+            "animations/Stand/Gestures/Excited_1",
+            "animations/Stand/Emotions/Positive/Excited_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "explain",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Explain_6",
+            "animations/Stand/Gestures/Explain_7",
+            "animations/Stand/Gestures/Explain_3",
+            "animations/Stand/Gestures/Explain_2",
+            "animations/Stand/Gestures/Explain_10",
+            "animations/Stand/Gestures/Explain_5",
+            "animations/Stand/Gestures/Explain_11",
+            "animations/Stand/Gestures/Explain_8",
+            "animations/Stand/Gestures/Explain_4"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "far",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Far_2",
+            "animations/Stand/Gestures/Far_1",
+            "animations/Stand/Gestures/Far_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "fitness",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Fitness_1",
+            "animations/Stand/Waiting/Fitness_3",
+            "animations/Stand/Waiting/Fitness_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "follow",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Follow_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "funnydancer",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/FunnyDancer_1"
+        ],
+        "action_description": "Pepper does a cute quite dance"
+    },
+    {
+        "behaviour_key": "give",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Give_6",
+            "animations/Stand/Gestures/Give_5",
+            "animations/Stand/Gestures/Give_4",
+            "animations/Stand/Gestures/Give_3",
+            "animations/Stand/Gestures/Give_1",
+            "animations/Stand/Gestures/Give_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "great",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Great_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "happy",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Positive/Happy_4",
+            "animations/Stand/Emotions/Positive/Happy_3",
+            "animations/Stand/Emotions/Positive/Happy_1",
+            "animations/Stand/Emotions/Neutral/Happy_1",
+            "animations/Stand/Emotions/Positive/Happy_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "happybirthday",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/HappyBirthday_1"
+        ],
+        "action_description": "This sings happy birthday this is a long animation"
+    },
+    {
+        "behaviour_key": "helicopter",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Helicopter_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "hesays",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/HeSays_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "hesitation",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Hesitation_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "hey",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Hey_3",
+            "animations/Stand/Gestures/Hey_8",
+            "animations/Stand/Gestures/Hey_4",
+            "animations/Stand/Gestures/Hey_9",
+            "animations/Stand/Gestures/Hey_1",
+            "animations/Stand/Gestures/Hey_2",
+            "animations/Stand/Gestures/Hey_10",
+            "animations/Stand/Gestures/Hey_6",
+            "animations/Stand/Gestures/Hey_7"
+        ],
+        "action_description": "Pepper does a wave, this works for both hello and goodbye"
+    },
+    {
+        "behaviour_key": "hideeyes",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/HideEyes_1"
+        ],
+        "action_description": "Pepper covers his eyes"
+    },
+    {
+        "behaviour_key": "hidehands",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/HideHands_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "hot",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Hot_1",
+            "animations/Stand/Gestures/Hot_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "idontknow",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/IDontKnow_6",
+            "animations/Stand/Gestures/IDontKnow_2",
+            "animations/Stand/Gestures/IDontKnow_1",
+            "animations/Stand/Gestures/IDontKnow_4",
+            "animations/Stand/Gestures/IDontKnow_5"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "impressed",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Impressed_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "innocent",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Innocent_1",
+            "animations/Stand/Waiting/Innocent_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "interested",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Interested_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "joy",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Joy_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "kisses",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Kisses_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "knight",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Knight_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "knockeye",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/KnockEye_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "kungfu",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/KungFu_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "laugh",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Positive/Laugh_1",
+            "animations/Stand/Emotions/Positive/Laugh_3",
+            "animations/Stand/Emotions/Positive/Laugh_2"
+        ],
+        "action_description": "Pepper laughs"
+    },
+    {
+        "behaviour_key": "listening",
+        "behaviour_variations": [
+            "animations/Stand/BodyTalk/Listening/Listening_7",
+            "animations/Stand/BodyTalk/Listening/Listening_5",
+            "animations/Stand/BodyTalk/Listening/Listening_4",
+            "animations/Stand/BodyTalk/Listening/Listening_6",
+            "animations/Stand/BodyTalk/Listening/Listening_3",
+            "animations/Stand/BodyTalk/Listening/Listening_2",
+            "animations/Stand/BodyTalk/Listening/Listening_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "look",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Look_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "lookhand",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/LookHand_2",
+            "animations/Stand/Waiting/LookHand_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "loveyou",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/LoveYou_1"
+        ],
+        "action_description": "Pepper blows a kiss"
+    },
+    {
+        "behaviour_key": "maybe",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Maybe_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "me",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Me_8",
+            "animations/Stand/Gestures/Me_2",
+            "animations/Stand/Gestures/Me_7",
+            "animations/Stand/Gestures/Me_1",
+            "animations/Stand/Gestures/Me_4"
+        ],
+        "action_description": "Pepper gestures to himself, this is good for when Pepper is talking about himself"
+    },
+    {
+        "behaviour_key": "mime",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Mime_1",
+            "animations/Stand/Gestures/Mime_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "mischievous",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Mischievous_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "monster",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Monster_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "mysticalpower",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/MysticalPower_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "next",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Next_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "no",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/No_2",
+            "animations/Stand/Gestures/No_5",
+            "animations/Stand/Gestures/No_3",
+            "animations/Stand/Gestures/No_1",
+            "animations/Stand/Gestures/No_4",
+            "animations/Stand/Gestures/No_7",
+            "animations/Stand/Gestures/No_9",
+            "animations/Stand/Gestures/No_8",
+            "animations/Stand/Gestures/No_6"
+        ],
+        "action_description": "Pepper shakes his head in disagreement"
+    },
+    {
+        "behaviour_key": "nothing",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Nothing_1",
+            "animations/Stand/Gestures/Nothing_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "ontheevening",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/OnTheEvening_3",
+            "animations/Stand/Gestures/OnTheEvening_4"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "playhands",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/PlayHands_2",
+            "animations/Stand/Waiting/PlayHands_1",
+            "animations/Stand/Waiting/PlayHands_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "please",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Please_3",
+            "animations/Stand/Gestures/Please_1",
+            "animations/Stand/Gestures/Please_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "puzzled",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Puzzled_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "reject",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Reject_5",
+            "animations/Stand/Gestures/Reject_3",
+            "animations/Stand/Gestures/Reject_1",
+            "animations/Stand/Gestures/Reject_2",
+            "animations/Stand/Gestures/Reject_6",
+            "animations/Stand/Gestures/Reject_4"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "relaxation",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Relaxation_2",
+            "animations/Stand/Waiting/Relaxation_1",
+            "animations/Stand/Waiting/Relaxation_4",
+            "animations/Stand/Waiting/Relaxation_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "relieved",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Relieved_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "rest",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Rest_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "sad",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Negative/Sad_2",
+            "animations/Stand/Emotions/Neutral/Sad_1",
+            "animations/Stand/Emotions/Negative/Sad_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "salute",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Salute_2",
+            "animations/Stand/Gestures/Salute_3",
+            "animations/Stand/Gestures/Salute_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "scratchback",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/ScratchBack_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "scratchbottom",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/ScratchBottom_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "scratcheye",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/ScratchEye_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "scratchhand",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/ScratchHand_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "scratchhead",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/ScratchHead_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "scratchleg",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/ScratchLeg_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "scratchtorso",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/ScratchTorso_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "showfloor",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/ShowFloor_4",
+            "animations/Stand/Gestures/ShowFloor_1",
+            "animations/Stand/Gestures/ShowFloor_2",
+            "animations/Stand/Gestures/ShowFloor_5",
+            "animations/Stand/Gestures/ShowFloor_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "showmuscles",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/ShowMuscles_1",
+            "animations/Stand/Waiting/ShowMuscles_4",
+            "animations/Stand/Waiting/ShowMuscles_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "showsky",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/ShowSky_12",
+            "animations/Stand/Waiting/ShowSky_1",
+            "animations/Stand/Gestures/ShowSky_1",
+            "animations/Stand/Gestures/ShowSky_4",
+            "animations/Stand/Gestures/ShowSky_5",
+            "animations/Stand/Gestures/ShowSky_11",
+            "animations/Stand/Gestures/ShowSky_2",
+            "animations/Stand/Gestures/ShowSky_9",
+            "animations/Stand/Gestures/ShowSky_6",
+            "animations/Stand/Waiting/ShowSky_2",
+            "animations/Stand/Gestures/ShowSky_8",
+            "animations/Stand/Gestures/ShowSky_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "showtablet",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/ShowTablet_1",
+            "animations/Stand/Gestures/ShowTablet_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "shy",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Shy_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "spaceshuttle",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/SpaceShuttle_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "stretch",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Stretch_1",
+            "animations/Stand/Gestures/Stretch_2",
+            "animations/Stand/Gestures/Stretch_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "stubborn",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Stubborn_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "surprised",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Surprised_1",
+            "animations/Stand/Emotions/Neutral/Surprised_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "suspicious",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Suspicious_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "take",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Take_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "takepicture",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/TakePicture_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "takeplace",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/TakePlace_1",
+            "animations/Stand/Gestures/TakePlace_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "taxi",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Taxi_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "think",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Think_3",
+            "animations/Stand/Waiting/Think_2",
+            "animations/Stand/Waiting/Think_4"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "thinking",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Thinking_2",
+            "animations/Stand/Gestures/Thinking_7",
+            "animations/Stand/Gestures/Thinking_1",
+            "animations/Stand/Gestures/Thinking_3",
+            "animations/Stand/Gestures/Thinking_8",
+            "animations/Stand/Gestures/Thinking_4",
+            "animations/Stand/Gestures/Thinking_5",
+            "animations/Stand/Gestures/Thinking_6"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "this",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/This_14",
+            "animations/Stand/Gestures/This_2",
+            "animations/Stand/Gestures/This_12",
+            "animations/Stand/Gestures/This_9",
+            "animations/Stand/Gestures/This_7",
+            "animations/Stand/Gestures/This_11",
+            "animations/Stand/Gestures/This_8",
+            "animations/Stand/Gestures/This_4",
+            "animations/Stand/Gestures/This_6",
+            "animations/Stand/Gestures/This_13",
+            "animations/Stand/Gestures/This_1",
+            "animations/Stand/Gestures/This_15",
+            "animations/Stand/Gestures/This_10",
+            "animations/Stand/Gestures/This_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "thoughtful",
+        "behaviour_variations": [
+            "animations/Stand/Emotions/Neutral/Thoughtful_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "touchhead",
+        "behaviour_variations": [
+            "animations/Stand/Reactions/TouchHead_4",
+            "animations/Stand/Reactions/TouchHead_3",
+            "animations/Stand/Reactions/TouchHead_1",
+            "animations/Stand/Reactions/TouchHead_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "waddle",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Waddle_1",
+            "animations/Stand/Waiting/Waddle_2"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "wakeup",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/WakeUp_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "whatsthis",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/WhatSThis_10",
+            "animations/Stand/Gestures/WhatSThis_4",
+            "animations/Stand/Gestures/WhatSThis_11",
+            "animations/Stand/Gestures/WhatSThis_1",
+            "animations/Stand/Gestures/WhatSThis_12",
+            "animations/Stand/Gestures/WhatSThis_7",
+            "animations/Stand/Gestures/WhatSThis_13",
+            "animations/Stand/Gestures/WhatSThis_8",
+            "animations/Stand/Gestures/WhatSThis_16",
+            "animations/Stand/Gestures/WhatSThis_6",
+            "animations/Stand/Gestures/WhatSThis_5",
+            "animations/Stand/Gestures/WhatSThis_2",
+            "animations/Stand/Gestures/WhatSThis_15",
+            "animations/Stand/Gestures/WhatSThis_3",
+            "animations/Stand/Gestures/WhatSThis_9",
+            "animations/Stand/Gestures/WhatSThis_14"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "wings",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Wings_3",
+            "animations/Stand/Gestures/Wings_4",
+            "animations/Stand/Gestures/Wings_5",
+            "animations/Stand/Gestures/Wings_2"
+        ],
+        "action_description": "Pepper will put his arms out and pretend to be a bird or some other winged creature/machine"
+    },
+    {
+        "behaviour_key": "yes",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Yes_2",
+            "animations/Stand/Gestures/Yes_1",
+            "animations/Stand/Gestures/Yes_3"
+        ],
+        "action_description": "Pepper agrees with a nod or other positive gesture"
+    },
+    {
+        "behaviour_key": "you",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/You_5",
+            "animations/Stand/Gestures/You_3",
+            "animations/Stand/Gestures/You_2",
+            "animations/Stand/Gestures/You_4",
+            "animations/Stand/Gestures/You_1"
+        ],
+        "action_description": "Pepper gestures to the person he is talking to, this is good for when Pepper is talking about someone else"
+    },
+    {
+        "behaviour_key": "youknowwhat",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/YouKnowWhat_6",
+            "animations/Stand/Gestures/YouKnowWhat_5",
+            "animations/Stand/Gestures/YouKnowWhat_2",
+            "animations/Stand/Gestures/YouKnowWhat_4",
+            "animations/Stand/Gestures/YouKnowWhat_3"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "yum",
+        "behaviour_variations": [
+            "animations/Stand/Gestures/Yum_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    },
+    {
+        "behaviour_key": "zombie",
+        "behaviour_variations": [
+            "animations/Stand/Waiting/Zombie_1"
+        ],
+        "action_description": "<NO DESCRIPTION>"
+    }
+]
