@@ -38,6 +38,8 @@ class BaseSpeechReceiverModule(ALModule):
         self.memory.subscribeToEvent("ResetConversation", self.getName(), "reset_message")
 
         self.save_csv = save_csv
+        
+        self.conversation_ongoing = False
 
         if self.save_csv:
             with open('dialogue.csv', 'w') as f:
@@ -79,8 +81,12 @@ class BaseSpeechReceiverModule(ALModule):
         PEPPER_TRIGGER = False
         PEPPER_TRIGGER_KEYWORDS = ["pepper", "pappa", "poppa", "pepa", "papa", "pippa", "pipa", "piper", "pipper", "pipa", "pepa", "peppa"]
  
+        # the LLM will set conversation_ongoing to True if it believes the conversation is ongoing
+        # When the LLM sets to false, we should reset the conversation_ongoing flag
+        # New conversation will be triggered by seeing if the keywords are present and setting conversation_ongoing to True
+        
         # If we are in a pepper trigger mode, we should only respond to messages that contain the trigger keywords
-        if PEPPER_TRIGGER and not any(keyword in message.lower() for keyword in PEPPER_TRIGGER_KEYWORDS):
+        if not self.conversation_ongoing and PEPPER_TRIGGER and not any(keyword in message.lower() for keyword in PEPPER_TRIGGER_KEYWORDS):
             return
         
         print("DEBUG: Received message: {}".format(message))
@@ -119,7 +125,7 @@ class BaseSpeechReceiverModule(ALModule):
                 behaviour_request = message_dict.get('behaviour_request', '')
                 behaviour_order = message_dict.get('behaviour_order', 'before')
                 respond = message_dict.get('respond', False)
-                
+                self.conversation_ongoing = message_dict.get('conversation_ongoing', False)
                 
                 if behaviour_request and not chat_response:
                     print("DEBUG: No text response, but message does not contain 'behaviour_request'.")
