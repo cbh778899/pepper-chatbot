@@ -79,8 +79,12 @@ class BaseSpeechReceiverModule(ALModule):
         # Do something with the received speech recognition result
         # If pepper is triggered, only respond to messages that contain the trigger keywords
         PEPPER_TRIGGER = False
-        PEPPER_TRIGGER_KEYWORDS = ["pepper", "pappa", "poppa", "pepa", "papa", "pippa", "pipa", "piper", "pipper", "pipa", "pepa", "peppa"]
- 
+        PEPPER_TRIGGER_KEYWORDS = [
+            "pepper", "peper", "peppa", "pepa", "papa", "pappa", "piper", "pipper", 
+            "pipa", "pippa", "poppa", "pepor", "pepur", "pepr", "peppar", "peppur", 
+            "peppor", "peppur", "pepur", "pepor", "pepr", "peppur", "peppor", "pepur"
+        ]
+
         # the LLM will set conversation_ongoing to True if it believes the conversation is ongoing
         # When the LLM sets to false, we should reset the conversation_ongoing flag
         # New conversation will be triggered by seeing if the keywords are present and setting conversation_ongoing to True
