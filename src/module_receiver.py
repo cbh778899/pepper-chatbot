@@ -1,25 +1,5 @@
 import re
-try:
-    from naoqi import ALModule, ALProxy
-except ImportError:
-    # Mock classes for testing purposes
-    class ALModule:
-        def __init__(self, name):
-            pass
-        def BIND_PYTHON(self, name, callback):
-            pass
-
-    class ALProxy:
-        def __init__(self, name, ip=None, port=None):
-            pass
-            self, module_name, nao_ip, port, 
-            pass
-        def unsubscribe(self, event, module):
-            pass
-        def raiseEvent(self, event, value):
-            pass
-        def say(self, text):
-            pass
+from naoqi import ALModule, ALProxy
 import time
 from tools import chat_completion
 from module_expressions import BehaviourExecutor
@@ -128,7 +108,6 @@ class BaseSpeechReceiverModule(ALModule):
         if not self.conversation_ongoing and PEPPER_TRIGGER:
             if PEPPER_NAME.lower() not in message.lower():
                 print("DEBUG: Message does not contain the trigger keyword 'Pepper'.")
-                self.reset_message()
                 return
 
         print("DEBUG: Sanitised message: {}".format(message))
@@ -160,11 +139,6 @@ class BaseSpeechReceiverModule(ALModule):
         else:
             print("DEBUG: No valid JSON found in response text.")
             return
-            # Make Pepper say what was received from the server in JSON format
-            # resp_text = json.dumps({
-            #     'chat_response': resp_text,
-            #     'conversation_ongoing': False
-            # })
         
         if resp_text:
             # Decode the message JSON format, example: {'chat_response': 'Hey, how are you?', 'behaviour_request': 'hey', 'behaviour_order': 'before'}
@@ -188,7 +162,7 @@ class BaseSpeechReceiverModule(ALModule):
                     print("DEBUG: Message does not contain 'chat_response'.")
                     return
 
-            except (json.JSONDecodeError, KeyError) as e:
+            except (SyntaxError, NameError) as e:
                 print("DEBUG: Failed to decode message: {}".format(e))
                 return
             
@@ -202,7 +176,6 @@ class BaseSpeechReceiverModule(ALModule):
             self.speech.say(resp_message)
             self.memory.raiseEvent("Speaking", None)
             self.messages.append({'role':'assistant','content':resp_message})
-            self.sync_messages()
 
             if self.save_csv:
                 with open('dialogue.csv', 'a') as f:
