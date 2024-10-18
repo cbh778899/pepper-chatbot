@@ -19,7 +19,7 @@ import numpy as np
 import sys
 import threading
 from naoqi import ALModule, ALProxy
-from tools import audio_recoginze, buffer_to_wav_in_memory
+from tools import audio_recoginze, buffer_to_wav_in_memory, audio_recognize_direct
 from numpy import sqrt, mean, square
 import traceback
 
@@ -335,7 +335,10 @@ class SpeechRecognitionModule(ALModule):
 
     def recognize(self, data):
         wav_file = buffer_to_wav_in_memory(data, sample_rate=SAMPLE_RATE)
-        result = audio_recoginze(self.stt_url, wav_file, self.stt_route, self.stt_api_key)
+        if('stt.speech.microsoft.com' in self.stt_url):
+            result = audio_recognize_direct(self.stt_url, wav_file, self.stt_route, self.stt_api_key)
+        else:
+            result = audio_recoginze(self.stt_url, wav_file, self.stt_route, self.stt_api_key)
         if result:
             self.memory.raiseEvent("SpeechRecognition", result)
             print('Speech Recognition Result:\n================================\n'+result+'\n================================\n')

@@ -90,6 +90,22 @@ def audio_recoginze(base_url, data, route='/speech/recognition', api_key='no-key
     
     return recoginzed_text
 
+def audio_recognize_direct(base_url, data, route, api_key):
+    headers = {
+        'Ocp-Apim-Subscription-Key': api_key,
+        'Content-Type': 'audio/wav; samplerate=48000',
+        'Accept': 'application/json'
+    }
+
+    response = request(
+        base_url, route, body=data, is_json=False, headers=headers
+    )
+
+    if 'DisplayText' in response and response['DisplayText']:
+        return str(response['DisplayText'])
+    else:
+        return ''
+
 def buffer_to_wav_in_memory(buffer, sample_rate=48000, num_channels=1, sampwidth=2):
     # Ensure that the buffer length matches the expected size for the sample width
     if sampwidth == 2:
