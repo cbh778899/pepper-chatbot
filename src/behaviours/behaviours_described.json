@@ -420,7 +420,8 @@
     {
         "behaviour_key": "interested",
         "behaviour_variations": [
-            "animations/Stand/Emotions/Neutral/Interested_1"
+            "animations/Stand/Emotions/Positive/Interested_1",
+            "animations/Stand/Emotions/Positive/Interested_2"
         ],
         "action_description": "<NO DESCRIPTION>"
     },

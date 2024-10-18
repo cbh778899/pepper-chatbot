@@ -96,6 +96,11 @@ class SpeechRecognitionModule(ALModule):
 
             # counter for wav file output
             self.fileCounter = 0
+            
+            # turn off native pepper speech recognition
+            asr = ALProxy("ALSpeechRecognition", self.strNaoIp, port)
+            asr.setVisualExpression(False)  # disable LEDs for when speech is detected (spinning blue eyes)
+            asr.setAudioExpression(False)   # disable beep noise when speech is detected
 
         except BaseException as err:
             print( "ERR: SpeechRecognitionModule: loading error: %s" % str(err) )
@@ -103,7 +108,7 @@ class SpeechRecognitionModule(ALModule):
     # __init__ - end
     def __del__( self ):
         print( "INF: SpeechRecognitionModule.__del__: cleaning everything" )
-        self.stop()
+        self.stop()    
 
     def start( self ):
         if(self.isStarted):

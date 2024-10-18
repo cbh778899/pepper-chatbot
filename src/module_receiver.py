@@ -33,7 +33,7 @@ class BaseSpeechReceiverModule(ALModule):
         self.api_key = api_key
         self.model_name = model_name
 
-        self.speech = ALProxy('ALTextToSpeech')
+        self.speech = ALProxy('ALAnimatedSpeech')
         self.memory = ALProxy("ALMemory", self.strNaoIp, self.port)
         self.memory.subscribeToEvent("ResetConversation", self.getName(), "reset_message")
 
@@ -78,7 +78,7 @@ class BaseSpeechReceiverModule(ALModule):
     def processRemote(self, signalName, message):
         # Do something with the received speech recognition result
         # If pepper is triggered, only respond to messages that contain the trigger keywords
-        PEPPER_TRIGGER = False
+        PEPPER_TRIGGER = True
         PEPPER_TRIGGER_KEYWORDS = [
             "pepper", "peper", "peppa", "pepa", "papa", "pappa", "piper", "pipper", 
             "pipa", "pippa", "poppa", "pepor", "pepur", "pepr", "peppar", "peppur", 
@@ -91,6 +91,7 @@ class BaseSpeechReceiverModule(ALModule):
         
         # If we are in a pepper trigger mode, we should only respond to messages that contain the trigger keywords
         if not self.conversation_ongoing and PEPPER_TRIGGER and not any(keyword in message.lower() for keyword in PEPPER_TRIGGER_KEYWORDS):
+            print("DEBUG: No Conversation ongoing and my name was not heard.")
             return
         
         print("DEBUG: Received message: {}".format(message))

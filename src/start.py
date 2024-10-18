@@ -112,7 +112,7 @@ def main():
             prompt = prompt_file.read().strip()
             prompt_file.close()
     except:
-        print('\n\nLoading prompt failed, is the file exists? Process to using the default prompt...\n\n')
+        print('\n\nLoading prompt failed, does the file exists? Using the default, blank prompt...\n\n')
         prompt = ''
 
     # setup broker to use memory and different modules
@@ -136,6 +136,11 @@ def main():
     memory.declareEvent("Listening")
     memory.declareEvent("EyeContact")
     memory.declareEvent("ResetConversation")
+    
+    # turn off native pepper speech recognition
+    asr = ALProxy("ALSpeechRecognition", ip, port)
+    asr.setVisualExpression(False)  # disable LEDs for when speech is detected (spinning blue eyes)
+    asr.setAudioExpression(False)   # disable beep noise when speech is detected
 
     speech_recoginition_url = os.getenv('SPEECH_RECOGINITION_URL') or server_url
 
@@ -176,7 +181,7 @@ def main():
             time.sleep(1)
 
     except KeyboardInterrupt:
-        print
+        print()
         print("Interrupted by user, shutting down")
         myBroker.shutdown()
         sys.exit(0)
