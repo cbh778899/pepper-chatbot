@@ -31,7 +31,10 @@ class BehaviourExecutor:
             print("Running behaviour: {}".format(selected_behaviour))
             try:
                 self.memory.raiseEvent("Speaking", selected_behaviour)
-                animation_player_service.run(selected_behaviour, _async=False)
+                try:
+                    animation_player_service.run(selected_behaviour, _async=False)
+                except:
+                    print('Error occurs, perhaps animation file is not exists')
                 self.memory.raiseEvent("Speaking", None)
             except RuntimeError as e:
                 print("Error running behaviour: {}".format(e))
