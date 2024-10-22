@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 import json
 import random
+import re
 from naoqi import ALProxy
 
 class BehaviourExecutor:
@@ -7,44 +9,47 @@ class BehaviourExecutor:
         with open(behaviours_file, 'r') as file:
             self.behaviours = json.load(file)
 
-    def execute_behaviour(self, behaviour_key, nao_ip="10.234.7.154", nao_port=9559):
-        print("Executing behaviour with key: '{}', nao_ip: {}, nao_port: {}".format(behaviour_key, nao_ip, nao_port))
-        behaviour_triggered = False
-        self.memory = ALProxy("ALMemory", nao_ip, nao_port)
-
-        # Search for the behaviour key in the behaviours
-        behaviour = next((b for b in self.behaviours if b['behaviour_key'] == behaviour_key), None)
+    def sanitize_behaviour_requests(self, chat_response):
+        """
+        Replace behaviour request keywords with full animation paths
         
-        if behaviour:
-            print("Behaviour key matched: '{}'".format(behaviour_key))
-            selected_behaviour = random.choice(behaviour['behaviour_variations'])
-            print("Selected behaviour: {}".format(selected_behaviour))
-            
-            # Convert selected_behaviour to string if it is not
-            if not isinstance(selected_behaviour, str):
-                selected_behaviour = str(selected_behaviour)
+        Finds the keywords in braces that are after the 'start', 'wait', 'stop', and 'run' keywords and replaces them with the full path to the animation.
+        
+        Example:
+            "^start(hey) Goodbye ^wait(hey)” will become "^start(animations/Stand/Gestures/Hey_4) Goodbye ^wait(animations/Stand/Gestures/Hey_4)"
+        """
 
-            # Log the selected behaviour path
-            print("Selected behaviour path: {}".format(selected_behaviour))
+        print("Sanitizing chat response: '{}'".format(chat_response))
+        
+        # Dictionary to store the mapping of keywords to selected behaviours
+        keyword_to_behaviour = {}
+        behaviour_triggered = False
 
-            animation_player_service = ALProxy("ALAnimationPlayer", nao_ip, nao_port)
-            print("Running behaviour: {}".format(selected_behaviour))
-            try:
-                self.memory.raiseEvent("Speaking", selected_behaviour)
-                try:
-                    animation_player_service.run(selected_behaviour, _async=False)
-                except:
-                    print('Error occurs, perhaps animation file is not exists')
-                self.memory.raiseEvent("Speaking", None)
-            except RuntimeError as e:
-                print("Error running behaviour: {}".format(e))
-                return False
+        # Function to replace keywords with full animation paths
+        def replace_keyword(match):
+            global behaviour_triggered
+            keyword = match.group(2)
+            if keyword not in keyword_to_behaviour:
+                # Search for the behaviour key in the behaviours
+                behaviour = next((b for b in self.behaviours if b['behaviour_key'] == keyword), None)
+                if behaviour:
+                    selected_behaviour = random.choice(behaviour['behaviour_variations'])
+                    keyword_to_behaviour[keyword] = selected_behaviour
+                    print("Keyword '{}' mapped to behaviour: {}".format(keyword, selected_behaviour))
+                    behaviour_triggered = True
+                else:
+                    print("No behaviour found for keyword: '{}'".format(keyword))
+                    return match.group(0)  # Return the original match if no behaviour is found
+            return "^{}({})".format(match.group(1), keyword_to_behaviour[keyword])
 
-            behaviour_triggered = True
-
-        print("Behaviour triggered: {}".format(behaviour_triggered))
-        return behaviour_triggered
+        # Replace all occurrences of the keywords in the chat response
+        sanitized_response = re.sub(r'\^(start|wait|stop|run)\((.*?)\)', replace_keyword, chat_response)
+        
+        print("Sanitized chat response: '{}'".format(sanitized_response))
+        return sanitized_response, behaviour_triggered
 
 # Example usage:
 # executor = BehaviourExecutor('/path/to/behaviours.json')
-# behaviour_triggered = executor.execute_behaviour("countfour", nao_ip="10.234.7.154", nao_port=9559)
+# sanitized_response, behaviour_triggered = executor.sanitize_behaviour_requests("^start(hey) Goodbye ^wait(hey)")
+# print(sanitized_response, behaviour_triggered)
+# >> ^start(animations/Stand/Gestures/Hey_4) Goodbye ^wait(animations/Stand/Gestures/Hey_4) True

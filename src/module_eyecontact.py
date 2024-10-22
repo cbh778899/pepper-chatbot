@@ -7,7 +7,6 @@ class EyeContactModule(ALModule):
 
         self.face_detected = False
         
-        self.speech = ALProxy("ALTextToSpeech")
         self.memory = ALProxy("ALMemory")
         self.memory.subscribeToEvent("FaceDetected", name, "on_face_detected")
     

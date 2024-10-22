@@ -1,6 +1,7 @@
 from module_receiver import BaseSpeechReceiverModule
 from module_speechrecognition import SpeechRecognitionModule
 from module_eyecontact import EyeContactModule
+from module_healthy_check import HealthyCheckModule
 from naoqi import ALProxy, ALBroker
 
 import time
@@ -136,6 +137,7 @@ def main():
     memory.declareEvent("Listening")
     memory.declareEvent("EyeContact")
     memory.declareEvent("ResetConversation")
+    memory.declareEvent("HealthyCheck")
     
     # turn off native pepper speech recognition
     asr = ALProxy("ALSpeechRecognition", ip, port)
@@ -172,13 +174,14 @@ def main():
     Receiver.start()
 
     if webview:
-        tablet_service = ALProxy("ALTabletService")
-        tablet_service.loadUrl(webview)
-        tablet_service.showWebview()
+        global HealthyCheck
+        HealthyCheck = HealthyCheckModule("HealthyCheck", webview)
 
     try:
         while True:
             time.sleep(1)
+            if webview:
+                HealthyCheck.ping()
 
     except KeyboardInterrupt:
         print()

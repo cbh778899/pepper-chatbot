@@ -1,7 +1,29 @@
-from naoqi import ALModule, ALProxy
+import re
+try:
+    from naoqi import ALModule, ALProxy
+except ImportError:
+    # Mock classes for testing purposes
+    class ALModule:
+        def __init__(self, name):
+            pass
+        def BIND_PYTHON(self, name, callback):
+            pass
+
+    class ALProxy:
+        def __init__(self, name, ip=None, port=None):
+            pass
+            self, module_name, nao_ip, port, 
+            pass
+        def unsubscribe(self, event, module):
+            pass
+        def raiseEvent(self, event, value):
+            pass
+        def say(self, text):
+            pass
 import time
 from tools import chat_completion
 from module_expressions import BehaviourExecutor
+import json
 
 class BaseSpeechReceiverModule(ALModule):
     """
@@ -75,10 +97,11 @@ class BaseSpeechReceiverModule(ALModule):
     def version( self ):
         return "1.1"
 
-    def processRemote(self, signalName, message):
+    def processRemote(self, signalName, message):       
         # Do something with the received speech recognition result
         # If pepper is triggered, only respond to messages that contain the trigger keywords
         PEPPER_TRIGGER = True
+        PEPPER_NAME = "Pepper"
         PEPPER_TRIGGER_KEYWORDS = [
             "pepper", "peper", "peppa", "pepa", "papa", "pappa", "piper", "pipper", 
             "pipa", "pippa", "poppa", "pepor", "pepur", "pepr", "peppar", "peppur", 
@@ -88,18 +111,26 @@ class BaseSpeechReceiverModule(ALModule):
         # the LLM will set conversation_ongoing to True if it believes the conversation is ongoing
         # When the LLM sets to false, we should reset the conversation_ongoing flag
         # New conversation will be triggered by seeing if the keywords are present and setting conversation_ongoing to True
-        
-        # If we are in a pepper trigger mode, we should only respond to messages that contain the trigger keywords
-        if not self.conversation_ongoing and PEPPER_TRIGGER and not any(keyword in message.lower() for keyword in PEPPER_TRIGGER_KEYWORDS):
-            print("DEBUG: No Conversation ongoing and my name was not heard.")
-            return
-        
         print("DEBUG: Received message: {}".format(message))
+        
+        # Replace all trigger keywords with "Pepper" in the message        
+        for keyword in PEPPER_TRIGGER_KEYWORDS:
+            message = re.sub(r'\b{}\b'.format(re.escape(keyword)), PEPPER_NAME, message, flags=re.IGNORECASE)
+
+        # If we are in a pepper trigger mode, we should only respond to messages that contain "Pepper"
+        if not self.conversation_ongoing and PEPPER_TRIGGER:
+            if PEPPER_NAME.lower() not in message.lower():
+                print("DEBUG: Message does not contain the trigger keyword 'Pepper'.")
+                self.reset_message()
+                return
+
+        print("DEBUG: Sanitised message: {}".format(message))
         
         self.messages.append({'role':'user', 'content': message})
         
         start_time = time.time()
 
+        self.memory.raiseEvent("Speaking", "[LOGS][THINK_RESP]I heard you said \""+message+"\", let me think...")
         # Send the message to the chatbot server
         resp_text = chat_completion(
         self.server_url, 
@@ -108,6 +139,7 @@ class BaseSpeechReceiverModule(ALModule):
         model_name=self.model_name, 
         api_key=self.api_key
         )
+        self.memory.raiseEvent("Speaking", None)
         
         print("DEBUG: Received response text: {}".format(resp_text))
         print("DEBUG: Response took {} seconds.".format(time.time() - start_time))
@@ -120,34 +152,35 @@ class BaseSpeechReceiverModule(ALModule):
         else:
             print("DEBUG: No valid JSON found in response text.")
             return
-
+            # Make Pepper say what was received from the server in JSON format
+            # resp_text = json.dumps({
+            #     'chat_response': resp_text,
+            #     'conversation_ongoing': False
+            # })
+        
         if resp_text:
             # Decode the message JSON format, example: {'chat_response': 'Hey, how are you?', 'behaviour_request': 'hey', 'behaviour_order': 'before'}
             # Only decode the message if it is in the correct JSON format
             try:
                 message_dict = eval(resp_text.replace('true', 'True').replace('false', 'False'))
                 chat_response = message_dict.get('chat_response', '')
-                behaviour_request = message_dict.get('behaviour_request', '')
-                behaviour_order = message_dict.get('behaviour_order', 'before')
-                respond = message_dict.get('respond', False)
                 self.conversation_ongoing = message_dict.get('conversation_ongoing', False)
                 
-                if behaviour_request and not chat_response:
-                    print("DEBUG: No text response, but message does not contain 'behaviour_request'.")
-
-                elif not respond or not chat_response:
+                if not chat_response:
                     print("DEBUG: Message does not contain 'chat_response' or told not to respond.")
                     return
 
                 # If we want to respond, only respond if we have a chat_response
                 elif chat_response:
+                    # Sanitize the chat_response to replace behaviour requests with full paths
+                    chat_response, behaviour_triggered = self.executor.sanitize_behaviour_requests(chat_response)
                     resp_message = chat_response
+                
+                else:
+                    print("DEBUG: Message does not contain 'chat_response'.")
+                    return
 
-                elif not behaviour_request:
-                        print("DEBUG: No text response, but message does not contain 'behaviour_request'.")
-                        return
-
-            except (SyntaxError, NameError) as e:
+            except (json.JSONDecodeError, KeyError) as e:
                 print("DEBUG: Failed to decode message: {}".format(e))
                 return
             
@@ -155,27 +188,17 @@ class BaseSpeechReceiverModule(ALModule):
             
             # Only dispaly the message if the chatbot wants to respond
             self.memory.raiseEvent("Listening", message)
-
-            # Handle behaviour request
-            if behaviour_request and behaviour_order == 'before':
-                print("DEBUG: Executing behaviour with behaviour_request: {}".format(behaviour_request))
-                behaviour_triggered = self.executor.execute_behaviour(behaviour_request, nao_ip=self.strNaoIp, nao_port=self.port)
-              
+ 
             print("AI Inference Result:\n================================\n"+resp_message+"\n================================\n")
             self.memory.raiseEvent("Speaking", resp_message)
-            if respond:
-                self.speech.say(resp_message)
+            self.speech.say(resp_message)
             self.memory.raiseEvent("Speaking", None)
             self.messages.append({'role':'assistant','content':resp_message})
-
-            if not behaviour_triggered and behaviour_request and behaviour_order == 'after':
-                self.executor.execute_behaviour(behaviour_request, nao_ip=self.strNaoIp, nao_port=self.port)
 
             if self.save_csv:
                 with open('dialogue.csv', 'a') as f:
                     f.write('user,"'+message.replace('"', '\\"')+'"\n')
                     f.write('assistant,"'+resp_message.replace('"', '\\"')+'"\n')
-                    if behaviour_request:
-                        f.write('behaviour order,"'+behaviour_order.replace('"', '\\"')+'"\n')
-                        f.write('behaviour,"'+behaviour_request.replace('"', '\\"')+'"\n')
+                    if behaviour_triggered:
+                        f.write('behaviour triggered,"'+behaviour_triggered.replace('"', '\\"')+'"\n')
                     f.close()

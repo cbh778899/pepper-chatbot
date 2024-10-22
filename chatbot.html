@@ -1,0 +1,265 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    font-family: ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"
+}
+
+div {
+    box-sizing: border-box;
+}
+
+#main {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#main.idle {
+    background-image: url(http://198.18.0.1/apps/rmit-race/racehub.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#main.idle * {
+    display: none !important;
+}
+
+.logs-main {
+    position: absolute;
+    left: 10%;
+    top: 0;
+    height: 100%;
+    width: 80%;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+#conversation {
+    width: 100%;
+    height: 70%;
+    position: absolute;
+    top: 0;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#conversation > .greeting {
+    width: 100%;
+    height: fit-content;
+    margin-top: 20%;
+    text-align: center;
+    color: gray;
+    font-size: 35px;
+}
+
+#conversation > .bubble {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    margin-top: 20px;
+    font-size: 23px;
+    width: fit-content;
+    word-wrap: break-word;
+}
+
+#conversation > .bubble.user {
+    margin-right: 0;
+}
+
+#conversation > .bubble.assistant {
+    margin-left: 0;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: rgba(230, 230, 230, 0.6);
+}
+
+#logs {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    background-color: rgba(220, 220, 220, 0.6);
+    padding: 20px;
+    font-size: 18px;
+}
+
+.buttons {
+    width: 10%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px;
+}
+
+.buttons > .btn {
+    width: fit-content;
+    height: fit-content;
+    color: gray;
+    position: relative;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.buttons > .btn > svg {
+    display: block;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+}
+    </style>
+    <script src="http://198.18.0.1/libs/qimessaging/2/qimessaging.js"></script>
+</head>
+<body>
+    <div id='main' class="idle">
+        <div class="logs-main">
+            <div id="conversation">
+                <div class="greeting">Hello, I'm pepper, how can I help you today?</div>
+            </div>
+            <div id="logs">Please wait a second, I'm still now prepared...</div>
+        </div>
+        <div class="buttons">
+            <div id="reset" class="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/>
+                    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" defer>
+// Connect to Pepper using QiSession
+const main = document.getElementById('main')
+var idle_timeout;
+var conversation_started = false;
+
+function onIdle() {
+    main.classList.add('idle')
+}
+
+function wakeUpWithDuration(duration) {
+    idle_timeout && clearTimeout(idle_timeout);
+    idle_timeout = setTimeout(onIdle, duration);
+    main.classList.remove('idle');
+}
+
+function wakeUp() {
+    wakeUpWithDuration(30000);
+}
+
+document.ontouchstart = wakeUp;
+document.onmousedown = wakeUp;
+
+const conversation = document.getElementById('conversation');
+
+function scroll() {
+    const distance = conversation.scrollHeight - conversation.scrollTop;
+    const duration = 300;
+    var start = Date.now();
+    const mustEnd = start + duration;
+    function update() {
+        const end = Date.now()
+        if(end <= mustEnd) {
+            conversation.scrollTop += ((end - start) / duration) * distance;
+            requestAnimationFrame(update)
+        }
+    }
+    requestAnimationFrame(update)
+}
+
+function addBubble(role, content) {
+    if(!conversation_started) {
+        conversation.textContent = '';
+        conversation_started = true;
+    }
+    const bubble = document.createElement('div')
+    bubble.className = 'bubble '+role;
+    bubble.textContent = content;
+    conversation.appendChild(bubble);
+    scroll();
+}
+
+const reset_btn = document.getElementById('reset');
+const logs = document.getElementById('logs')
+
+var log_timeout;
+
+function setLog(content) {
+    log_timeout && clearTimeout(log_timeout);
+    if(content.indexOf("[THINK_RESP]") === 0) {
+        logs.textContent = content.substring(13);
+        log_timeout = setTimeout(function(){
+            logs.textContent = "Hmm that's a little bit hard, please wait while I'm still thinking..."
+        }, 3000);
+    } else {
+        logs.textContent = content;
+    }
+}
+
+QiSession(function(session) {
+    session.service("ALMemory").then(function(ALMemory) {
+        ALMemory.subscriber("SpeechRecognition").then(function(subscriber) {
+            subscriber.signal.connect(function(value) {
+                wakeUp()
+                setLog('What I heard is: ' + value)
+            });
+        });
+        ALMemory.subscriber("Listening").then(function(subscriber) {
+            subscriber.signal.connect(function(value) {
+                wakeUp()
+                if(value.indexOf('[LOGS]') === 0) {
+                    setLog(value.substring(6))
+                } else {
+                    addBubble('user', value)
+                }
+            });
+        });
+        ALMemory.subscriber("Speaking").then(function(subscriber) {
+            subscriber.signal.connect(function(value) {
+                wakeUp()
+                if(value.indexOf('[LOGS]') === 0) {
+                    setLog(value.substring(6))
+                } else {
+                    value && addBubble('assistant', value)
+                }
+            });
+        });
+        ALMemory.subscriber("EyeContact").then(function(subscriber) {
+            subscriber.signal.connect(function(value) {
+                if(!value) {
+                    wakeUpWithDuration(2000)
+                } else {
+                    wakeUp();
+                }
+            });
+        });
+        ALMemory.subscriber("ResetConversation").then(function(subscriber) {
+            subscriber.signal.connect(function(value) {
+                conversation.innerHTML = "<div class=\"greeting\">Hello, I'm pepper, how can I help you today?</div>"
+                conversation_started = false
+            });
+        });
+        ALMemory.subscriber("HealthyCheck").then(function(subscriber) {
+            subscriber.signal.connect(function(value) {
+                value === "ping" &&
+                ALMemory.raiseEvent("HealthyCheck", "pong")
+            });
+        });
+        reset_btn.onclick = function() {ALMemory.raiseEvent("ResetConversation", true)}
+    }, function(error) {});
+}, function() {});
+</script>
+</html>
