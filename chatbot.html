@@ -93,7 +93,9 @@ div {
     align-items: center;
     background-color: rgba(220, 220, 220, 0.6);
     padding: 20px;
-    font-size: 18px;
+    font-size: 22px;
+    word-wrap: break-word;
+    overflow: hidden;
 }
 
 .buttons {
@@ -128,7 +130,7 @@ div {
             <div id="conversation">
                 <div class="greeting">Hello, I'm pepper, how can I help you today?</div>
             </div>
-            <div id="logs">Please wait a second, I'm still now prepared...</div>
+            <div id="logs">Please wait a second, I'm still not prepared...</div>
         </div>
         <div class="buttons">
             <div id="reset" class="btn">
@@ -137,6 +139,7 @@ div {
                     <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
                 </svg>
             </div>
+            <div id="record-control" class="btn"></div>
         </div>
     </div>
 </body>
@@ -145,6 +148,15 @@ div {
 const main = document.getElementById('main')
 var idle_timeout;
 var conversation_started = false;
+
+const START_RECORD = 
+'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-circle-fill" viewBox="0 0 16 16">'+
+    '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-8 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>'+
+'</svg>'
+const PAUSE_RECORD = 
+'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">'+
+  '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5m3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5"/>'+
+'</svg>'
 
 function onIdle() {
     main.classList.add('idle')
@@ -180,7 +192,7 @@ function scroll() {
     requestAnimationFrame(update)
 }
 
-function addBubble(role, content) {
+function addBubble(role, content, no_scroll) {
     if(!conversation_started) {
         conversation.textContent = '';
         conversation_started = true;
@@ -189,7 +201,7 @@ function addBubble(role, content) {
     bubble.className = 'bubble '+role;
     bubble.textContent = content;
     conversation.appendChild(bubble);
-    scroll();
+    !no_scroll && scroll();
 }
 
 const reset_btn = document.getElementById('reset');
@@ -200,17 +212,39 @@ var log_timeout;
 function setLog(content) {
     log_timeout && clearTimeout(log_timeout);
     if(content.indexOf("[THINK_RESP]") === 0) {
-        logs.textContent = content.substring(13);
+        logs.textContent = content.substring(12);
         log_timeout = setTimeout(function(){
             logs.textContent = "Hmm that's a little bit hard, please wait while I'm still thinking..."
-        }, 3000);
+        }, 4000);
     } else {
         logs.textContent = content;
     }
 }
 
+const record_controller = document.getElementById('record-control');
+record_controller.innerHTML = PAUSE_RECORD;
+var stopped = false;
+
 QiSession(function(session) {
     session.service("ALMemory").then(function(ALMemory) {
+
+        function speakingCallback(value) {
+            wakeUp()
+            if(value.indexOf('[LOGS]') === 0) {
+                setLog(value.substring(6))
+            } else {
+                value && addBubble('assistant', value, false)
+                setLog("Here's my answer")
+            }
+        }
+
+        function handleStopping(send_event) {
+            send_event && ALMemory.raiseEvent("ControlRecording", stopped);
+            stopped = !stopped;
+            stopped && setLog("Recording paused");
+            record_controller.innerHTML = stopped ? START_RECORD : PAUSE_RECORD;
+        }
+
         ALMemory.subscriber("SpeechRecognition").then(function(subscriber) {
             subscriber.signal.connect(function(value) {
                 wakeUp()
@@ -223,18 +257,13 @@ QiSession(function(session) {
                 if(value.indexOf('[LOGS]') === 0) {
                     setLog(value.substring(6))
                 } else {
-                    addBubble('user', value)
+                    addBubble('user', value, false)
                 }
             });
         });
         ALMemory.subscriber("Speaking").then(function(subscriber) {
             subscriber.signal.connect(function(value) {
-                wakeUp()
-                if(value.indexOf('[LOGS]') === 0) {
-                    setLog(value.substring(6))
-                } else {
-                    value && addBubble('assistant', value)
-                }
+                speakingCallback(value)
             });
         });
         ALMemory.subscriber("EyeContact").then(function(subscriber) {
@@ -258,7 +287,32 @@ QiSession(function(session) {
                 ALMemory.raiseEvent("HealthyCheck", "pong")
             });
         });
+        ALMemory.subscriber("Sync").then(function(subscriber) {
+            subscriber.signal.connect(function(value) {
+                const values = JSON.parse(value);
+                const speaking = values.speaking
+                const allowed_recording = values.allowed_recording
+                const history = values.history
+
+                if(speaking) {
+                    speakingCallback(speaking);
+                }
+                if(!allowed_recording) {
+                    stopped = false
+                    handleStopping(false)
+                }
+                if(history) {
+                    const history_arr = JSON.parse(history)
+                    conversation_started = false;
+                    for(var i = 0; i < history_arr.length; i++) {
+                        addBubble(history_arr[i].role, history_arr[i].content, true);
+                    }
+                    scroll()
+                }
+            });
+        });
         reset_btn.onclick = function() {ALMemory.raiseEvent("ResetConversation", true)}
+        record_controller.onclick = function() { handleStopping(true) }
     }, function(error) {});
 }, function() {});
 </script>
