@@ -1,5 +1,6 @@
 from naoqi import ALProxy, ALModule
 import time
+import json
 
 
 class HealthyCheckModule(ALModule):
@@ -13,6 +14,13 @@ class HealthyCheckModule(ALModule):
         self.memory = ALProxy("ALMemory")
         self.tablet_service = ALProxy("ALTabletService")
         self.memory.subscribeToEvent("HealthyCheck", name, "pong")
+        self.memory.subscribeToEvent("ControlRecording", name, "update_recording")
+        self.memory.subscribeToEvent("Speaking", name, "update_speaking")
+        self.memory.subscribeToEvent("SyncMessages", name, "update_chat_history")
+
+        self.is_allowed_recording = False
+        self.is_speaking = None
+        self.chat_history = ''
     
     def ping(self):
         self.memory.raiseEvent("HealthyCheck", "ping")
@@ -21,8 +29,25 @@ class HealthyCheckModule(ALModule):
         if not self.got_pong:
             print("Not Got pong")
             self.tablet_service.showWebview(self.webview_url)
-            time.sleep(1)
+            time.sleep(2)
+            self.sync()
 
     def pong(self, event_name, value):
         if value == 'pong':
             self.got_pong = True
+
+    def sync(self):
+        self.memory.raiseEvent("Sync", json.dumps({
+            "speaking": self.is_speaking,
+            "allowed_recording": self.is_allowed_recording,
+            "history": self.chat_history
+        }))
+
+    def update_recording(self, event_name, value):
+        self.is_allowed_recording = value
+
+    def update_speaking(self, event_name, value):
+        self.is_speaking = value
+
+    def update_chat_history(self, event_name, value):
+        self.chat_history = value

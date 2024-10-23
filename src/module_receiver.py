@@ -43,9 +43,6 @@ class BaseSpeechReceiverModule(ALModule):
         self.port = port
         self.strNaoIp = strNaoIp
 
-        self.messages = []
-        self.system_prompt = system_prompt
-        self.reset_message()
         self.behaviour_file = behavior_file
 
         self.response_finished = True
@@ -58,6 +55,10 @@ class BaseSpeechReceiverModule(ALModule):
         self.speech = ALProxy('ALAnimatedSpeech')
         self.memory = ALProxy("ALMemory", self.strNaoIp, self.port)
         self.memory.subscribeToEvent("ResetConversation", self.getName(), "reset_message")
+
+        self.messages = []
+        self.system_prompt = system_prompt
+        self.reset_message()
 
         self.save_csv = save_csv
         
@@ -76,11 +77,17 @@ class BaseSpeechReceiverModule(ALModule):
         print( "INF: ReceiverModule.__del__: cleaning everything" )
         self.stop()
 
+    def sync_messages(self):
+        msg = self.messages
+        if self.system_prompt: msg = [i for i in self.messages if i['role'] != 'system']
+        self.memory.raiseEvent("SyncMessages", json.dumps(msg))
+
     def reset_message(self):
         self.messages = [{
             "role":"system",
             "content": self.system_prompt or "You are an assistant names Pepper, your job is to answer users' questions in short."
         }]
+        self.sync_messages()
 
     def start( self ):
         self.memory.subscribeToEvent("SpeechRecognition", self.getName(), "processRemote")
@@ -127,6 +134,7 @@ class BaseSpeechReceiverModule(ALModule):
         print("DEBUG: Sanitised message: {}".format(message))
         
         self.messages.append({'role':'user', 'content': message})
+        self.sync_messages()
         
         start_time = time.time()
 
@@ -194,6 +202,7 @@ class BaseSpeechReceiverModule(ALModule):
             self.speech.say(resp_message)
             self.memory.raiseEvent("Speaking", None)
             self.messages.append({'role':'assistant','content':resp_message})
+            self.sync_messages()
 
             if self.save_csv:
                 with open('dialogue.csv', 'a') as f:

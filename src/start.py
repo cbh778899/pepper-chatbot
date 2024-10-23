@@ -138,6 +138,9 @@ def main():
     memory.declareEvent("EyeContact")
     memory.declareEvent("ResetConversation")
     memory.declareEvent("HealthyCheck")
+    memory.declareEvent("ControlRecording")
+    memory.declareEvent("Sync")
+    memory.declareEvent("SyncMessages")
     
     # turn off native pepper speech recognition
     asr = ALProxy("ALSpeechRecognition", ip, port)

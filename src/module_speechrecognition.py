@@ -64,10 +64,12 @@ class SpeechRecognitionModule(ALModule):
 
             self.eye_contact = False
             self.is_speaking = False
+            self.is_allowed_recording = True
 
             self.memory = ALProxy("ALMemory", self.strNaoIp, self.port)
             self.memory.subscribeToEvent("EyeContact", self.getName(), "eye_contact_toggle")
             self.memory.subscribeToEvent("Speaking", self.getName(), "speaking_toggle")
+            self.memory.subscribeToEvent("ControlRecording", self.getName(), "recording_toggle")
 
             # flag to indicate if we are currently recording audio
             self.isRecording = False
@@ -147,8 +149,12 @@ class SpeechRecognitionModule(ALModule):
         self.is_speaking = not not is_speaking
         self.toggle_status()
 
+    def recording_toggle(self, _, allowed_recording):
+        self.is_allowed_recording = allowed_recording
+        self.toggle_status()
+
     def toggle_status(self):
-        if self.eye_contact and not self.is_speaking:
+        if self.eye_contact and not self.is_speaking and self.is_allowed_recording:
             self.start()
         else:
             self.pause()
