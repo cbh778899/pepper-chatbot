@@ -48,6 +48,41 @@ class BehaviourExecutor:
         print("Sanitized chat response: '{}'".format(sanitized_response))
         return sanitized_response, behaviour_triggered
 
+    def execute_behaviour(self, behaviour_key):
+        """
+        Execute a behaviour based on the behaviour key
+        
+        The behaviour key is used to find the corresponding behaviour in the behaviours JSON file.
+        The behaviour is selected randomly from the available variations.
+        The full path to the animation is returned.
+        """
+
+        behaviour = next((b for b in self.behaviours if b['behaviour_key'] == behaviour_key), None)
+        if behaviour:
+            selected_behaviour = random.choice(behaviour['behaviour_variations'])
+            print("Executing behaviour: {}".format(selected_behaviour))
+            # Execute the behaviour using ALBehaviorManager
+            try:
+                behaviour_manager = ALProxy("ALBehaviorManager")
+                behaviour_manager.runBehavior(selected_behaviour)
+                return selected_behaviour
+            except Exception as e:
+                print("Error executing behaviour: {}".format(e))
+        else:
+            print("No behaviour found for key: '{}'".format(behaviour_key))
+        return None
+    
+    def execute_random_behaviour(self, behaviour_keys):
+        """
+        Execute a behaviour based on multiple behaviour keys. It will pick a single random behaviour from the list of keys.
+        
+        The behaviour key is used to find the corresponding behaviour in the behaviours JSON file.
+        The behaviour is selected randomly from the available variations.
+        The full path to the animation is returned.
+        """
+        self.execute_behaviour(random.choice(behaviour_keys))
+        
+        
 # Example usage:
 # executor = BehaviourExecutor('/path/to/behaviours.json')
 # sanitized_response, behaviour_triggered = executor.sanitize_behaviour_requests("^start(hey) Goodbye ^wait(hey)")

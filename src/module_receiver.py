@@ -94,6 +94,7 @@ class BaseSpeechReceiverModule(ALModule):
             "pipa", "pippa", "poppa", "pepor", "pepur", "pepr", "peppar", "peppur", 
             "peppor", "peppur", "pepur", "pepor", "pepr", "peppur", "peppor", "pepur"
         ]
+        THINKING_BEHAVIOURS = ['thinking', 'listening']
 
         # the LLM will set conversation_ongoing to True if it believes the conversation is ongoing
         # When the LLM sets to false, we should reset the conversation_ongoing flag
@@ -108,6 +109,7 @@ class BaseSpeechReceiverModule(ALModule):
         if not self.conversation_ongoing and PEPPER_TRIGGER:
             if PEPPER_NAME.lower() not in message.lower():
                 print("DEBUG: Message does not contain the trigger keyword 'Pepper'.")
+                self.reset_message()
                 return
 
         print("DEBUG: Sanitised message: {}".format(message))
@@ -118,6 +120,7 @@ class BaseSpeechReceiverModule(ALModule):
         start_time = time.time()
 
         self.memory.raiseEvent("Speaking", "[LOGS][THINK_RESP]I heard you said \""+message+"\", let me think...")
+        self.executor.execute_random_behaviour(THINKING_BEHAVIOURS)
         # Send the message to the chatbot server
         resp_text = chat_completion(
         self.server_url, 
@@ -162,7 +165,7 @@ class BaseSpeechReceiverModule(ALModule):
                     print("DEBUG: Message does not contain 'chat_response'.")
                     return
 
-            except (SyntaxError, NameError) as e:
+            except (json.JSONDecodeError, KeyError) as e:
                 print("DEBUG: Failed to decode message: {}".format(e))
                 return
             
